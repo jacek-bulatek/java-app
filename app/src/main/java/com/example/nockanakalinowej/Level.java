@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -13,6 +14,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import static java.lang.Math.min;
+
+/*
+ * Activity Levelu, w xmlu jest opisane położenie
+ * stałych elementów i istnienie 30 kafli (ImageButtonów)
+ * docelowo klasa ma zawierać (as far as we thought this throught):
+ * int LvlNo;
+ * Button startButton;
+ * Button previousButton;
+ * Button nextButton;
+ * ImageButton[] kafle;
+ * LvlMng lvlMng;
+ * i uchwyty do eventów OnClick
+ */
 
 public class Level extends AppCompatActivity{
 
@@ -64,12 +78,13 @@ public class Level extends AppCompatActivity{
         }.start();
     }
     public void previousOnclick(View view){
-        lvlMng.Orient();
+
     }
     public int kafelEdge(){
-        Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();
-        int height = display.getHeight();
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int width = displaymetrics.widthPixels;
+        int height = displaymetrics.heightPixels;
 
         int x=(int)((0.8*width-2*marginx-(kflamountx-1)*space)/kflamountx);
         int y=(int)((0.8*height-2*marginy-(kflamounty-1)*space)/kflamounty);

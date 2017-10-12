@@ -5,6 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/*
+ * Main Activity
+ * screen menu głównego
+ */
+
 public class StartScreen extends AppCompatActivity {
 
     @Override

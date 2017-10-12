@@ -5,6 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/*
+ * Activity okna wyboru levelu
+ * docelowo ma to być gridView z buttonami,
+ * które odpalają Level z argumentem LvlNo;
+ */
+
 public class LevelSelectScreen extends AppCompatActivity {
 
     @Override

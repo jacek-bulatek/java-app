@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 /**
  * Created by Jacek on 2017-10-11.
+ * Klasa do ustawiania atrybutów widgetom
+ * uzależnionych od numeru levelu
  */
 
 class LvlMng {
@@ -19,12 +21,5 @@ class LvlMng {
         buttArr = (ImageButton[]) view;
     }
 
-    public void Orient(){
-        buttArr[0].setBackgroundResource(R.drawable.lvl3_1_2);
-        buttArr[0].setVisibility(View.VISIBLE);
-        ViewGroup.MarginLayoutParams marginParam = new ViewGroup.MarginLayoutParams(buttArr[0].getLayoutParams());
-        marginParam.setMargins(100, 100, 0, 0);
-        ConstraintLayout.layoutParam
-        buttArr[0].setLayoutParams();
-    }
+
 }
