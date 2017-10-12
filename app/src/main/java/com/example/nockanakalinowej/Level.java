@@ -32,15 +32,14 @@ public class Level extends AppCompatActivity{
 
     TextView counter;
     Button startButton;
+    Button previousButton;
+    Button nextButton;
+    Button backButton;
     ImageButton kafel1;
     ImageButton kafel2;
     ImageButton[] kafle;
-    int kflamountx;
-    int kflamounty;
-    int marginx;
-    int marginy;
-    int space;
     LvlMng lvlMng;
+    int lvlNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +49,19 @@ public class Level extends AppCompatActivity{
         setContentView(R.layout.activity_level);
         kafle = new ImageButton[]{(ImageButton)findViewById(R.id.imageButton0),(ImageButton)findViewById(R.id.imageButton1),(ImageButton)findViewById(R.id.imageButton2),(ImageButton)findViewById(R.id.imageButton3),(ImageButton)findViewById(R.id.imageButton4),(ImageButton)findViewById(R.id.imageButton5)};
         counter = (TextView) findViewById(R.id.textView2);
-        startButton = (Button) findViewById(R.id.button7);
+        startButton = (Button) findViewById(R.id.start);
+        previousButton = (Button) findViewById(R.id.previous);
+        nextButton = (Button) findViewById(R.id.next);
         kafel1 = (ImageButton) findViewById(R.id.imageButton0);
         kafel2 = (ImageButton) findViewById(R.id.imageButton1);
-        lvlMng = new LvlMng(kafle);
-        kflamountx=3;
-        kflamounty=2;
-        marginx=6;
-        marginy=3;
-        space=2;
+        lvlNo = 3;
+        lvlMng = new LvlMng(kafle, this, lvlNo);
     }
     public void startOnclick(View view){
         startButton.setText("Restart");
-        kafel1.setVisibility(View.VISIBLE);
-        kafel2.setVisibility(View.VISIBLE);
-        kafel1.setImageResource(R.drawable.lvl3_1_2);
-        new CountDownTimer(10000, 1000) {
+        lvlMng.orient();
+        lvlMng.setKaflRandomImages();
+        new CountDownTimer(9100, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 counter.setText("" + millisUntilFinished / 1000);
@@ -80,18 +76,9 @@ public class Level extends AppCompatActivity{
     public void previousOnclick(View view){
 
     }
-    public int kafelEdge(){
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = displaymetrics.widthPixels;
-        int height = displaymetrics.heightPixels;
 
-        int x=(int)((0.8*width-2*marginx-(kflamountx-1)*space)/kflamountx);
-        int y=(int)((0.8*height-2*marginy-(kflamounty-1)*space)/kflamounty);
 
-        return min(x,y);
 
-    }
     public void lvlStart(){
         kafel1.setImageResource(R.color.colorAccent);
         kafel2.setImageResource(R.color.colorAccent);
