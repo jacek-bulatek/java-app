@@ -19,7 +19,7 @@ import static java.lang.Math.min;
 class LvlMng {
     ImageButton[] buttArr;
     AppCompatActivity window;
-    int marginx;
+    int minminmarginx;
     int marginy;
     int space;
     int lvlNo;
@@ -29,12 +29,16 @@ class LvlMng {
     public LvlMng(View[] view, AppCompatActivity context, int LvlNo){
         buttArr = (ImageButton[]) view;
         window = context;
-        marginx = 6;
-        marginy = 3;
+        minmarginx = 3;
+        minmarginy = 3;
         space = 2;
         lvlNo = LvlNo;
         kflamoutx = 0;
         kflamouty = 0;
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        window.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int width = displaymetrics.widthPixels;
+        int height = displaymetrics.heightPixels;
     }
     /*
      * Public method orient()
@@ -44,9 +48,7 @@ class LvlMng {
      */
     public void orient(){
         int edge;
-        ConstraintSet constraintSet = new ConstraintSet();
-        ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(window).inflate(R.layout.activity_level, null);
-        constraintSet.clone(constraintLayout);
+
         switch (lvlNo)
         {
             case 1:
@@ -74,32 +76,21 @@ class LvlMng {
                 kflamouty = 0;
                 break;
         }
+
         edge = kafelEdge(kflamoutx, kflamouty);
-        for (int i = 0; i < (kflamoutx + kflamouty); i++) {
-            buttArr[i].setMaxWidth(edge);
-            buttArr[i].setMinimumWidth(edge);
-            buttArr[i].setMaxHeight(edge);
-            buttArr[i].setMinimumHeight(edge);
-        }
-        for (int i = 0; i < kflamouty; i++){
-            for (int j = 0; j < kflamoutx; j++){
-                int index = i*kflamoutx+j;
-                int leftMargin = marginx+j*edge+j*space;
-                int topMargin = marginy+i*edge+i*space;
-                constraintSet.connect(buttArr[index].getId(), constraintSet.LEFT, R.id.kafelLayout, constraintSet.LEFT, leftMargin);
-                constraintSet.connect(buttArr[index].getId(), constraintSet.TOP, R.id.kafelLayout, constraintSet.TOP, topMargin);
+        int marginx= (int)(0.8*width - edge*kflamountx -(kflamountx-1)*space);
+        int marginy= (int)(0.8*height - edge*kflamounty -(kflamounty-1)*space);
+
+        for (int i = 0; i < kflamouty; i++) {
+            for (int j = 0; j < kflamoutx; j++) {
+                int index = i * kflamoutx + j;
+                butArr[index].setFrame(marginx + j * edge + j * space, marginy + i * edge + i * space, width - marginx + j * edge + j * space, height - marginy + i * edge + i * space);
             }
         }
     }
     public int kafelEdge(int kflamountx, int kflamounty){
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        window.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = displaymetrics.widthPixels;
-        int height = displaymetrics.heightPixels;
-
-        int x=(int)((0.8*width-2*marginx-(kflamountx-1)*space)/kflamountx);
-        int y=(int)((0.8*height-2*marginy-(kflamounty-1)*space)/kflamounty);
-
+        int x=(int)((0.8*width-2*minmarginx-(kflamountx-1)*space)/kflamountx);
+        int y=(int)((0.8*height-2*minmarginy-(kflamounty-1)*space)/kflamounty);
         return min(x,y);
     }
     public void setKaflRandomImages(){
