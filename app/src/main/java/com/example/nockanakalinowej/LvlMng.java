@@ -17,28 +17,30 @@ import static java.lang.Math.min;
  */
 
 class LvlMng {
-    ImageButton[] buttArr;
     AppCompatActivity window;
-    int minminmarginx;
-    int marginy;
+    ImageButton[] buttArr;
+    int minmarginx;
+    int minmarginy;
     int space;
     int lvlNo;
-    int kflamoutx;
-    int kflamouty;
+    int kflamountx;
+    int kflamounty;
+    int width;
+    int height;
 
     public LvlMng(View[] view, AppCompatActivity context, int LvlNo){
         buttArr = (ImageButton[]) view;
-        window = context;
         minmarginx = 3;
         minmarginy = 3;
         space = 2;
         lvlNo = LvlNo;
-        kflamoutx = 0;
-        kflamouty = 0;
+        kflamountx = 0;
+        kflamounty = 0;
+        window = context;
         DisplayMetrics displaymetrics = new DisplayMetrics();
         window.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = displaymetrics.widthPixels;
-        int height = displaymetrics.heightPixels;
+        width = displaymetrics.widthPixels;
+        height = displaymetrics.heightPixels;
     }
     /*
      * Public method orient()
@@ -48,45 +50,65 @@ class LvlMng {
      */
     public void orient(){
         int edge;
-
+        ConstraintSet constraintSet = new ConstraintSet();
+        ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(window).inflate(R.layout.activity_level, null);
+        constraintSet.clone(constraintLayout);
         switch (lvlNo)
         {
             case 1:
-                kflamoutx = 2;
-                kflamouty = 1;
+                kflamountx = 2;
+                kflamounty = 1;
                 break;
             case 2:
-                kflamoutx = 2;
-                kflamouty = 2;
+                kflamountx = 2;
+                kflamounty = 2;
                 break;
             case 3:case 4:
-                kflamoutx = 3;
-                kflamouty = 2;
+                kflamountx = 3;
+                kflamounty = 2;
                 break;
             case 5:case 6:case 7:
-                kflamoutx = 3;
-                kflamouty = 3;
+                kflamountx = 3;
+                kflamounty = 3;
                 break;
             case 8:
-                kflamoutx = 4;
-                kflamouty = 3;
+                kflamountx = 4;
+                kflamounty = 3;
                 break;
             default:
-                kflamoutx = 0;
-                kflamouty = 0;
+                kflamountx = 0;
+                kflamounty = 0;
                 break;
         }
 
-        edge = kafelEdge(kflamoutx, kflamouty);
-        int marginx= (int)(0.8*width - edge*kflamountx -(kflamountx-1)*space);
-        int marginy= (int)(0.8*height - edge*kflamounty -(kflamounty-1)*space);
+        edge = kafelEdge(kflamountx, kflamounty);
 
-        for (int i = 0; i < kflamouty; i++) {
-            for (int j = 0; j < kflamoutx; j++) {
-                int index = i * kflamoutx + j;
-                butArr[index].setFrame(marginx + j * edge + j * space, marginy + i * edge + i * space, width - marginx + j * edge + j * space, height - marginy + i * edge + i * space);
-            }
+        //int marginx= (int)(0.8*width - edge*kflamountx -(kflamountx-1)*space);
+        //int marginy= (int)(0.8*height - edge*kflamounty -(kflamounty-1)*space);
+
+        for (int i = 0; i < (kflamountx + kflamounty); i++) {
+            buttArr[i].setMaxWidth(edge);
+            buttArr[i].setMinimumWidth(edge);
+            buttArr[i].setMaxHeight(edge);
+            buttArr[i].setMinimumHeight(edge);
         }
+
+        for (int i = 0; i < kflamounty; i++) {
+            for (int j = 0; j < kflamountx; j++) {
+                int index = i * kflamountx + j;
+                int leftMargin = minmarginx + j * edge + j * space;
+                int topMargin = minmarginy + i * edge + i * space;
+                //constraintSet.connect(buttArr[index].getId(), constraintSet.LEFT, constraintSet.PARENT_ID, constraintSet.LEFT, leftMargin);
+                //constraintSet.connect(buttArr[index].getId(), constraintSet.TOP, constraintSet.PARENT_ID, constraintSet.TOP, topMargin);
+            }
+        //constraintSet.applyTo(constraintLayout);
+        }
+/*                for (int i = 0; i < kflamounty; i++) {
+            for (int j = 0; j < kflamountx; j++) {
+                int index = i * kflamountx + j;
+                buttArr[index].setFrame(marginx + j * edge + j * space, marginy + i * edge + i * space, width - marginx + j * edge + j * space, height - marginy + i * edge + i * space);
+            }
+        }*/
     }
     public int kafelEdge(int kflamountx, int kflamounty){
         int x=(int)((0.8*width-2*minmarginx-(kflamountx-1)*space)/kflamountx);
@@ -94,7 +116,7 @@ class LvlMng {
         return min(x,y);
     }
     public void setKaflRandomImages(){
-        for (int i = 0; i < (kflamoutx + kflamouty); i++){
+        for (int i = 0; i < (kflamountx + kflamounty); i++){
             buttArr[i].setImageResource(R.drawable.lvl3_1_2);
             buttArr[i].setVisibility(View.VISIBLE);
         }
