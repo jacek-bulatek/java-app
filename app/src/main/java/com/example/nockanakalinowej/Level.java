@@ -33,38 +33,24 @@ public class Level extends AppCompatActivity{
     Button startButton;
     Button previousButton;
     Button nextButton;
-    Button backButton;
-    ImageButton kafel1;
-    ImageButton kafel2;
-    ImageButton[] kafle;
     LvlMng lvlMng;
     int lvlNo;
+    ConstraintLayout lvlLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        ConstraintSet constraintSet = new ConstraintSet();
-        ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(this).inflate(R.layout.activity_level, null);
-        constraintSet.clone(constraintLayout);
-        constraintSet.connect(R.id.imageButton0, constraintSet.LEFT, constraintSet.PARENT_ID, constraintSet.LEFT, 200);
-        constraintSet.connect(R.id.imageButton0, constraintSet.TOP, constraintSet.PARENT_ID, constraintSet.TOP, 200);
-        constraintSet.applyTo(constraintLayout);
-        setContentView(constraintLayout);
         lvlNo = 3;
+        lvlMng = new LvlMng(this, lvlNo);
+        setContentView(lvlMng.getLayout());
         counter = (TextView) findViewById(R.id.textView2);
         startButton = (Button) findViewById(R.id.start);
         previousButton = (Button) findViewById(R.id.previous);
         nextButton = (Button) findViewById(R.id.next);
-        kafel1 = (ImageButton) findViewById(R.id.imageButton0);
-        kafel2 = (ImageButton) findViewById(R.id.imageButton1);
-        kafle = new ImageButton[]{(ImageButton)findViewById(R.id.imageButton0),(ImageButton)findViewById(R.id.imageButton1),(ImageButton)findViewById(R.id.imageButton2),(ImageButton)findViewById(R.id.imageButton3),(ImageButton)findViewById(R.id.imageButton4),(ImageButton)findViewById(R.id.imageButton5)};
-        lvlMng = new LvlMng(kafle, this, lvlNo);
     }
     public void startOnclick(View view){
         startButton.setText("Restart");
-        lvlMng.orient();
-        lvlMng.setKaflRandomImages();
         new CountDownTimer(9100, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -73,7 +59,6 @@ public class Level extends AppCompatActivity{
 
             public void onFinish() {
                 counter.setText("GO!");
-                lvlStart();
             }
         }.start();
     }
@@ -82,13 +67,5 @@ public class Level extends AppCompatActivity{
     }
     public void nextOnclick(View view){
 
-    }
-    public void lvlStart(){
-        kafel1.setImageResource(R.color.colorAccent);
-        kafel2.setImageResource(R.color.colorAccent);
-    }
-    public void kafelClick(View view){
-        ImageButton kafel = (ImageButton) findViewById(view.getId());
-        kafel.setImageResource(R.color.colorAccent2);
     }
 }
