@@ -1,5 +1,6 @@
 package com.example.nockanakalinowej;
 
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
@@ -26,12 +27,20 @@ class LvlMng {
     int kflamounty;
     int width;
     int height;
+    int[] idList;
 
     public LvlMng(AppCompatActivity context, int LvlNo){
+        idList = new int[]{
+            R.id.kafel1, R.id.kafel2, R.id.kafel3, R.id.kafel4, R.id.kafel5,
+            R.id.kafel6, R.id.kafel7, R.id.kafel8, R.id.kafel9, R.id.kafel10,
+            R.id.kafel11, R.id.kafel12, R.id.kafel13, R.id.kafel14, R.id.kafel15,
+            R.id.kafel16, R.id.kafel17, R.id.kafel18, R.id.kafel19, R.id.kafel20,
+            R.id.kafel21, R.id.kafel22, R.id.kafel23, R.id.kafel24, R.id.kafel25,
+            R.id.kafel26, R.id.kafel27, R.id.kafel28, R.id.kafel29, R.id.kafel30,
+        };
         minmarginx = 3;
         minmarginy = 3;
         space = 2;
-        setLayout(setKafels(LvlNo));
         kflamountx = 0;
         kflamounty = 0;
         window = context;
@@ -39,6 +48,7 @@ class LvlMng {
         window.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         width = displaymetrics.widthPixels;
         height = displaymetrics.heightPixels;
+        setLayout(setKafels(LvlNo));
     }
 
     protected void setLayout(int kafelNo){
@@ -50,9 +60,15 @@ class LvlMng {
         constraintSet.clone(lvlLayout);
 
         for (int i = 0; i < kafelNo; i++)
+            buttArr[i] = new ImageButton(window);
+
+        for (int i = 0; i < kafelNo; i++)
+            buttArr[i].setId(idList[i]);
+
+        for (int i = 0; i < kafelNo; i++)
             lvlLayout.addView(buttArr[i]);
 
-        for (int i = 0; i < kflamounty; i++) {
+/*        for (int i = 0; i < kflamounty; i++) {
             for (int j = 0; j < kflamountx; j++) {
                 int index = i * kflamountx + j;
                 int leftMargin = minmarginx + j * edge + j * space;
@@ -62,7 +78,7 @@ class LvlMng {
                 constraintSet.connect(buttArr[index].getId(), constraintSet.TOP, constraintSet.PARENT_ID, constraintSet.TOP, topMargin);
                 constraintSet.applyTo(lvlLayout);
             }
-        }
+        }*/
     }
     public ConstraintLayout getLayout(){ return lvlLayout;}
 
