@@ -1,11 +1,8 @@
 package com.example.nockanakalinowej;
 
-import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,8 +14,7 @@ import static java.lang.Math.min;
 
 /*
  * Created by Jacek on 2017-10-11.
- * Klasa do ustawiania atrybutów widgetom
- * uzależnionych od numeru levelu
+ * Positioning Widgets in Level Activity Class
  */
 
 class LvlMng {
@@ -58,16 +54,10 @@ class LvlMng {
     protected void setLayout(int kafelNo){
         ImageButton[] buttArr = new ImageButton[kafelNo];
         int edge = kafelEdge(kflamountx, kflamounty);
-
-        ConstraintSet constraintSet = new ConstraintSet();
-        lvlLayout = new ConstraintLayout(window);//(ConstraintLayout) LayoutInflater.from(window).inflate(R.layout.activity_level, null);
+        lvlLayout = new ConstraintLayout(window);
         lvlLayout.setId(R.id.Level_layout);
-        //constraintSet.clone(lvlLayout);
 
-        /*
-         *    ---- SETTING CONSTANTS ----
-         */
-
+        //  ---- SETTING CONSTANTS ----
 
         //  ---- CREATING INSTANCES OF CONSTANT WIDGETS ----
         final Button start = new Button(window);
@@ -202,12 +192,6 @@ class LvlMng {
                 kafelField.addView(buttArr[index]);
             }
         }
-
-        //  ---- ADDING KAFELS TO LAYOUT ----
-
-//        for (int i = 0; i < kafelNo; i++)
-//            lvlLayout.addView(buttArr[i]);
-
     }
 
     public ConstraintLayout getLayout(){ return lvlLayout;}
