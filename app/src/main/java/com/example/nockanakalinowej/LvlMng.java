@@ -153,10 +153,11 @@ class LvlMng {
 
         //  ---- KAFEL FIELD PARAMS ----
         ConstraintLayout.LayoutParams kafelFieldParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        kafelFieldParams.topToTop = R.id.Level_layout;
         kafelFieldParams.leftToLeft = R.id.Level_layout;
         kafelFieldParams.rightToLeft = R.id.full_image;
+        kafelFieldParams.topToTop = R.id.Level_layout;
         kafelFieldParams.topMargin = 0;
+        kafelField.setLayoutParams(kafelFieldParams);
 
         //  ---- ADD CONSTANT WIDGETS TO LAYOUT ----
         lvlLayout.addView(previous);
@@ -191,14 +192,13 @@ class LvlMng {
         for (int i = 0; i < kflamounty; i++) {
             for (int j = 0; j < kflamountx; j++) {
                 int index = i * kflamountx + j;
-                int rightMargin = j * edge + j * space;
-                int topMargin = i * edge + i * space;
+                int rightMargin = minmarginx + j * edge + j * space;
+                int topMargin = minmarginy + i * edge + i * space;
                 kafelParams[index].rightMargin = rightMargin;
                 kafelParams[index].topMargin = topMargin;
                 buttArr[index].setLayoutParams(kafelParams[index]);
                 buttArr[index].setImageResource(R.color.colorAccent2);
-                //buttArr[index].setBackgroundColor(window.getResources().getColor(R.color.colorAccent2));
-                buttArr[index].setBackground(null);
+                buttArr[index].setBackgroundColor(window.getResources().getColor(R.color.colorAccent2));
                 kafelField.addView(buttArr[index]);
             }
         }
