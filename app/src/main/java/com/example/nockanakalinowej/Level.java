@@ -21,6 +21,7 @@ public class Level extends AppCompatActivity{
     Button previousButton;
     Button nextButton;
     LvlMng lvlMng;
+    AniMng aniMng;
     int lvlNo;
 
     @Override
@@ -28,6 +29,7 @@ public class Level extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         lvlNo = 5;
+        aniMng = new AniMng();
         lvlMng = new LvlMng(this, lvlNo);
         setContentView(lvlMng.getLayout());
         counter = (TextView) findViewById(R.id.counter);
@@ -47,6 +49,7 @@ public class Level extends AppCompatActivity{
                 counter.setText("GO!");
             }
         }.start();
+        aniMng.startAnimation(findViewById(R.id.kafel1), findViewById(R.id.kafel6));
     }
     public void previousOnclick(View view){
 

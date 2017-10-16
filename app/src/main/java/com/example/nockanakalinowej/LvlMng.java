@@ -1,7 +1,6 @@
 package com.example.nockanakalinowej;
 
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,7 +137,7 @@ class LvlMng {
         counterParams.rightToRight = R.id.Level_layout;
         counterParams.rightMargin = 16;
         counter.setLayoutParams(counterParams);
-        counter.setTextSize(14);
+        counter.setTextSize(24);
         counter.setText(""+fullImageHeight);
 
         //  ---- KAFEL FIELD PARAMS ----
