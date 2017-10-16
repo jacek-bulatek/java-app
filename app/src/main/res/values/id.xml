@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="next" type="id" />
+    <item name="start" type="id" />
+    <item name="previous" type="id" />
+    <item name="full_image" type="id" />
+    <item name="counter" type="id" />
+    <item name="Level_layout" type="id" />
     <item name="kafel1" type="id" />
     <item name="kafel2" type="id" />
     <item name="kafel3" type="id" />
