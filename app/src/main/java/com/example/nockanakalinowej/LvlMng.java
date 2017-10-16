@@ -179,21 +179,21 @@ class LvlMng {
                 kafelParams.topMargin = topMargin;
                 buttArr[index].setLayoutParams(kafelParams);
                 buttArr[index].setImageResource(R.color.colorAccent);
+                lvlLayout.addView(buttArr[index]);
             }
         }
 
         //  ---- ADDING KAFELS TO LAYOUT ----
 
-        for (int i = 0; i < kafelNo; i++)
-            lvlLayout.addView(buttArr[i]);
+//        for (int i = 0; i < kafelNo; i++)
+//            lvlLayout.addView(buttArr[i]);
 
     }
 
     public ConstraintLayout getLayout(){ return lvlLayout;}
 
     protected int setKafels(int lvlNo){
-        switch (lvlNo)
-        {
+        switch (lvlNo) {
             case 1:
                 kflamountx = 2;
                 kflamounty = 1;
@@ -202,11 +202,14 @@ class LvlMng {
                 kflamountx = 2;
                 kflamounty = 2;
                 break;
-            case 3:case 4:
+            case 3:
+            case 4:
                 kflamountx = 3;
                 kflamounty = 2;
                 break;
-            case 5:case 6:case 7:
+            case 5:
+            case 6:
+            case 7:
                 kflamountx = 3;
                 kflamounty = 3;
                 break;
@@ -219,9 +222,7 @@ class LvlMng {
                 kflamounty = 0;
                 break;
         }
-        /*
-        */
-        return kflamountx+kflamounty;
+        return kflamountx*kflamounty;
     }
     public int kafelEdge(int kflx, int kfly){
         int x=(int)((0.8*width-2*minmarginx-(kflx-1)*space)/kflx);
