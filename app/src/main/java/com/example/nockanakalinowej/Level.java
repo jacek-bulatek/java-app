@@ -44,7 +44,7 @@ public class Level extends AppCompatActivity{
         lvlNo = 3;
         lvlMng = new LvlMng(this, lvlNo);
         setContentView(lvlMng.getLayout());
-        counter = (TextView) findViewById(R.id.textView2);
+        counter = (TextView) findViewById(R.id.counter);
         startButton = (Button) findViewById(R.id.start);
         previousButton = (Button) findViewById(R.id.previous);
         nextButton = (Button) findViewById(R.id.next);

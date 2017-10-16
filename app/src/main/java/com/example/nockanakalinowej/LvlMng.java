@@ -154,19 +154,22 @@ class LvlMng {
 
         //  ---- SETTING KAFELS ----
 
+        //  ---- CREATING INSTANCES OF KAFELS ----
+
         for (int i = 0; i < kafelNo; i++)
             buttArr[i] = new ImageButton(window);
+
+        //  ---- SETTING IDs FOR KAFELS ----
 
         for (int i = 0; i < kafelNo; i++)
             buttArr[i].setId(idList[i]);
 
-        for (int i = 0; i < kafelNo; i++)
-            lvlLayout.addView(buttArr[i]);
+        //  ---- SETTING KAFELS PARAMS ----
 
         ConstraintLayout.LayoutParams kafelParams = new ConstraintLayout.LayoutParams(edge, edge);
         kafelParams.leftToLeft = R.id.Level_layout;
         kafelParams.topToTop = R.id.Level_layout;
-/*
+
         for (int i = 0; i < kflamounty; i++) {
             for (int j = 0; j < kflamountx; j++) {
                 int index = i * kflamountx + j;
@@ -177,8 +180,15 @@ class LvlMng {
                 buttArr[index].setLayoutParams(kafelParams);
                 buttArr[index].setImageResource(R.color.colorAccent);
             }
-        }*/
+        }
+
+        //  ---- ADDING KAFELS TO LAYOUT ----
+
+        for (int i = 0; i < kafelNo; i++)
+            lvlLayout.addView(buttArr[i]);
+
     }
+
     public ConstraintLayout getLayout(){ return lvlLayout;}
 
     protected int setKafels(int lvlNo){
