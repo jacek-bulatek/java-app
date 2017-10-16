@@ -41,7 +41,7 @@ public class Level extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        lvlNo = 3;
+        lvlNo = 5;
         lvlMng = new LvlMng(this, lvlNo);
         setContentView(lvlMng.getLayout());
         counter = (TextView) findViewById(R.id.counter);
