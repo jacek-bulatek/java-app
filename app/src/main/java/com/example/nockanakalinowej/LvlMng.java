@@ -51,7 +51,7 @@ class LvlMng {
     }
 
     protected void setLayout(int kafelNo){
-        ImageButton[] buttArr = new ImageButton[kafelNo];
+        final ImageButton[] buttArr = new ImageButton[kafelNo];
         int edge = kafelEdge(kflamountx, kflamounty);
         lvlLayout = new ConstraintLayout(window);
         lvlLayout.setId(R.id.Level_layout);
@@ -186,10 +186,21 @@ class LvlMng {
                 kafelParams[index].rightMargin = rightMargin;
                 kafelParams[index].topMargin = topMargin;
                 buttArr[index].setLayoutParams(kafelParams[index]);
-                buttArr[index].setImageResource(R.color.colorAccent2);
-                buttArr[index].setBackgroundColor(window.getResources().getColor(R.color.colorAccent2));
+                buttArr[index].setBackgroundResource(R.color.brightPink);
+
                 kafelField.addView(buttArr[index]);
             }
+        }
+
+        //  ---- SETTING KAFELS OnClick LISTENERS ----
+
+        for (int i = 0; i < kafelNo; i++){
+            buttArr[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    window.kafelOnclick((ImageButton) view);
+                }
+            });
         }
     }
 

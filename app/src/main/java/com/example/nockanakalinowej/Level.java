@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import static java.lang.Math.min;
@@ -23,11 +24,15 @@ public class Level extends AppCompatActivity{
     LvlMng lvlMng;
     AniMng aniMng;
     int lvlNo;
+    int action;
+    int[] clickedKafelIDs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        action = 0;
+        clickedKafelIDs = new int[2];
         lvlNo = 5;
         aniMng = new AniMng();
         lvlMng = new LvlMng(this, lvlNo);
@@ -49,12 +54,23 @@ public class Level extends AppCompatActivity{
                 counter.setText("GO!");
             }
         }.start();
-        aniMng.startAnimation(findViewById(R.id.kafel1), findViewById(R.id.kafel6));
+        //aniMng.startAnimation(findViewById(R.id.kafel1), findViewById(R.id.kafel6));
     }
     public void previousOnclick(View view){
 
     }
     public void nextOnclick(View view){
 
+    }
+    public void kafelOnclick(ImageButton clickedKafel){
+        clickedKafel.setBackgroundResource(R.color.darkPink);
+        clickedKafelIDs[action] = clickedKafel.getId();
+        if(action == 1){
+            aniMng.startAnimation(findViewById(clickedKafelIDs[0]), findViewById(clickedKafelIDs[1]));
+            //aniMng.waitForAnimationEnd();
+            findViewById(clickedKafelIDs[0]).setBackgroundResource(R.color.brightPink);
+            findViewById(clickedKafelIDs[1]).setBackgroundResource(R.color.brightPink);
+        }
+        action = 1 - action;
     }
 }
