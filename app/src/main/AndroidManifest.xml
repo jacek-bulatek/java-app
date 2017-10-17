@@ -28,13 +28,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".StartScreen" />
         </activity>
-        <activity
-            android:name=".canvasLevel"
-            android:screenOrientation="landscape">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".StartScreen" />
-        </activity>
     </application>
 
 </manifest>

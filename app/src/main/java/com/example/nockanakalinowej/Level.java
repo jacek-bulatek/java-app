@@ -12,16 +12,7 @@ import android.widget.TextView;
 import static java.lang.Math.min;
 
 /*
- * Activity Levelu, w xmlu jest opisane położenie
- * stałych elementów i istnienie 30 kafli (ImageButtonów)
- * docelowo klasa ma zawierać (as far as we thought this throught):
- * int LvlNo;
- * Button startButton;
- * Button previousButton;
- * Button nextButton;
- * ImageButton[] kafle;
- * LvlMng lvlMng;
- * i uchwyty do eventów OnClick
+ * Level Activity
  */
 
 public class Level extends AppCompatActivity{
@@ -30,33 +21,29 @@ public class Level extends AppCompatActivity{
     Button startButton;
     Button previousButton;
     Button nextButton;
-    Button backButton;
-    ImageButton kafel1;
-    ImageButton kafel2;
-    ImageButton[] kafle;
     LvlMng lvlMng;
+    AniMng aniMng;
     int lvlNo;
+    int action;
+    int[] clickedKafelIDs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_level);
-        kafle = new ImageButton[]{(ImageButton)findViewById(R.id.imageButton0),(ImageButton)findViewById(R.id.imageButton1),(ImageButton)findViewById(R.id.imageButton2),(ImageButton)findViewById(R.id.imageButton3),(ImageButton)findViewById(R.id.imageButton4),(ImageButton)findViewById(R.id.imageButton5)};
-        counter = (TextView) findViewById(R.id.textView2);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        action = 0;
+        clickedKafelIDs = new int[2];
+        lvlNo = 5;
+        aniMng = new AniMng();
+        lvlMng = new LvlMng(this, lvlNo);
+        setContentView(lvlMng.getLayout());
+        counter = (TextView) findViewById(R.id.counter);
         startButton = (Button) findViewById(R.id.start);
         previousButton = (Button) findViewById(R.id.previous);
         nextButton = (Button) findViewById(R.id.next);
-        kafel1 = (ImageButton) findViewById(R.id.imageButton0);
-        kafel2 = (ImageButton) findViewById(R.id.imageButton1);
-        lvlNo = 3;
-        lvlMng = new LvlMng(kafle, this, lvlNo);
     }
     public void startOnclick(View view){
         startButton.setText("Restart");
-        lvlMng.orient();
-        lvlMng.setKaflRandomImages();
         new CountDownTimer(9100, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -65,22 +52,25 @@ public class Level extends AppCompatActivity{
 
             public void onFinish() {
                 counter.setText("GO!");
-                lvlStart();
             }
         }.start();
+        //aniMng.startAnimation(findViewById(R.id.kafel1), findViewById(R.id.kafel6));
     }
     public void previousOnclick(View view){
 
     }
+    public void nextOnclick(View view){
 
-
-
-    public void lvlStart(){
-        kafel1.setImageResource(R.color.colorAccent);
-        kafel2.setImageResource(R.color.colorAccent);
     }
-    public void kafelClick(View view){
-        ImageButton kafel = (ImageButton) findViewById(view.getId());
-        kafel.setImageResource(R.color.colorAccent2);
+    public void kafelOnclick(ImageButton clickedKafel){
+        clickedKafel.setBackgroundResource(R.color.darkPink);
+        clickedKafelIDs[action] = clickedKafel.getId();
+        if(action == 1){
+            aniMng.startAnimation(findViewById(clickedKafelIDs[0]), findViewById(clickedKafelIDs[1]));
+            //aniMng.waitForAnimationEnd();
+            findViewById(clickedKafelIDs[0]).setBackgroundResource(R.color.brightPink);
+            findViewById(clickedKafelIDs[1]).setBackgroundResource(R.color.brightPink);
+        }
+        action = 1 - action;
     }
 }

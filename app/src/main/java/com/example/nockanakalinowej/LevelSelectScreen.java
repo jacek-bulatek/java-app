@@ -22,10 +22,4 @@ public class LevelSelectScreen extends AppCompatActivity {
         Intent intent = new Intent(this, Level.class);
         startActivity(intent);
     }
-    public void canvaslvlSelection(View view){
-        Intent intent = new Intent(this, canvasLevel.class);
-        startActivity(intent);
-    }
-
-
 }
