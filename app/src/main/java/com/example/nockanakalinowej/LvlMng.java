@@ -176,6 +176,9 @@ class LvlMng {
             kafelParams[i] = new ConstraintLayout.LayoutParams(edge, edge);
             kafelParams[i].rightToRight = R.id.Kafel_Field;
             kafelParams[i].topToTop = R.id.Kafel_Field;
+            kafelParams[i].bottomToBottom = R.id.Kafel_Field;
+            kafelParams[i].leftToLeft = R.id.Kafel_Field;
+
         }
 
         for (int i = 0; i < kflamounty; i++) {
@@ -183,8 +186,12 @@ class LvlMng {
                 int index = i * kflamountx + j;
                 int rightMargin = minmarginx + j * edge + j * space;
                 int topMargin = minmarginy + i * edge + i * space;
+                int leftMargin = minmarginx + (kflamountx - j - 1) * edge + (kflamountx - j - 1) * space;
+                int bottomMargin = minmarginy + (kflamounty - i - 1) * edge + (kflamounty - i - 1) * space;
                 kafelParams[index].rightMargin = rightMargin;
                 kafelParams[index].topMargin = topMargin;
+                kafelParams[index].leftMargin = leftMargin;
+                kafelParams[index].bottomMargin = bottomMargin;
                 buttArr[index].setLayoutParams(kafelParams[index]);
                 buttArr[index].setBackgroundResource(R.color.brightPink);
 

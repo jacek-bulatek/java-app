@@ -52,6 +52,7 @@ class AniMng {
         animationSet.play(reScaleXKafel1).after(translationXKafel1);
         animationSet.playTogether(reScaleXKafel1,reScaleXKafel2,reScaleYKafel1,reScaleYKafel2);
         animationSet.start();
+        
     }
     public void waitForAnimationEnd(){
         while (animationSet.isRunning()){
