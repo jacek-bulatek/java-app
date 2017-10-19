@@ -14,6 +14,10 @@ import android.widget.ImageButton;
 class AniMng {
     AnimatorSet animationSet;
 
+    public AniMng(){
+        animationSet = new AnimatorSet();
+    }
+
     void startAnimation(View kafel1, View kafel2){
         ObjectAnimator scaleXKafel1 = ObjectAnimator.ofFloat(kafel1, "scaleX", 1.2f);
         scaleXKafel1.setDuration(1000);
@@ -53,10 +57,5 @@ class AniMng {
         animationSet.playTogether(reScaleXKafel1,reScaleXKafel2,reScaleYKafel1,reScaleYKafel2);
         animationSet.start();
         
-    }
-    public void waitForAnimationEnd(){
-        while (animationSet.isRunning()){
-            int i = 0;
-        }
     }
 }
