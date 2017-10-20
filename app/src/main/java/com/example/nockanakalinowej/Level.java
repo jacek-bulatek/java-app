@@ -86,6 +86,14 @@ public class Level extends AppCompatActivity{
                     super.onAnimationEnd(animation);
                     findViewById(clickedKafelIDs[0]).setBackgroundResource(R.color.brightPink);
                     findViewById(clickedKafelIDs[1]).setBackgroundResource(R.color.brightPink);
+
+                    float          x = findViewById(clickedKafelIDs[0]).getX();
+                    findViewById(clickedKafelIDs[0]).setX(findViewById(clickedKafelIDs[1]).getX());
+                    findViewById(clickedKafelIDs[1]).setX(x);
+
+                    float          y = findViewById(clickedKafelIDs[0]).getY();
+                    findViewById(clickedKafelIDs[0]).setY(findViewById(clickedKafelIDs[1]).getY());
+                    findViewById(clickedKafelIDs[1]).setY(y);
                 }
             });
         }

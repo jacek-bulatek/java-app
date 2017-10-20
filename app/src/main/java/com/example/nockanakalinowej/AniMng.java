@@ -18,7 +18,7 @@ class AniMng {
         animationSet = new AnimatorSet();
     }
 
-    void startAnimation(View kafel1, View kafel2){
+    void startAnimation(View kafel1, final View kafel2){
         ObjectAnimator scaleXKafel1 = ObjectAnimator.ofFloat(kafel1, "scaleX", 1.2f);
         scaleXKafel1.setDuration(1000);
         ObjectAnimator scaleYKafel1 = ObjectAnimator.ofFloat(kafel1, "scaleY", 1.2f);
@@ -56,6 +56,5 @@ class AniMng {
         animationSet.play(reScaleXKafel1).after(translationXKafel1);
         animationSet.playTogether(reScaleXKafel1,reScaleXKafel2,reScaleYKafel1,reScaleYKafel2);
         animationSet.start();
-        
     }
 }
