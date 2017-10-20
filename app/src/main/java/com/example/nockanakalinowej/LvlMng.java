@@ -96,7 +96,7 @@ class LvlMng {
         previous.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                window.previousOnclick(previous);
+                window.previousOnclick(view);
             }
         });
 
@@ -111,7 +111,7 @@ class LvlMng {
         next.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                window.nextOnclick(next);
+                window.nextOnclick(view);
             }
         });
 
@@ -126,7 +126,7 @@ class LvlMng {
         start.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                window.startOnclick(start);
+                window.startOnclick(view);
             }
         });
 
@@ -193,12 +193,11 @@ class LvlMng {
                 kafelParams[index].leftMargin = leftMargin;
                 kafelParams[index].bottomMargin = bottomMargin;
                 buttArr[index].setLayoutParams(kafelParams[index]);
-                buttArr[index].setBackgroundResource(R.color.brightPink);
+                buttArr[index].setBackgroundResource(R.drawable.kafel_cover);
 
                 kafelField.addView(buttArr[index]);
             }
         }
-
         //  ---- SETTING KAFELS OnClick LISTENERS ----
 
         for (int i = 0; i < kafelNo; i++){
@@ -249,5 +248,21 @@ class LvlMng {
         int x=(int)((0.8*width-2*minmarginx-(kflx-1)*space)/kflx);
         int y=(int)((0.8*height-2*minmarginy-(kfly-1)*space)/kfly);
         return min(x,y);
+    }
+    public void setOncClickListeners(){
+        window.findViewById(R.id.previous).setClickable(true);
+        window.findViewById(R.id.next).setClickable(true);
+        window.findViewById(R.id.start).setClickable(true);
+
+        for (int i = 0; i < kflamountx*kflamounty; i++)
+            window.findViewById(idList[i]).setClickable(true);
+    }
+    public void deleteOncClickListeners(){
+        window.findViewById(R.id.previous).setClickable(false);
+        window.findViewById(R.id.next).setClickable(false);
+        window.findViewById(R.id.start).setClickable(false);
+
+        for (int i = 0; i < kflamountx*kflamounty; i++)
+            window.findViewById(idList[i]).setClickable(false);
     }
 }

@@ -36,7 +36,7 @@ public class Level extends AppCompatActivity{
         action = 0;
         clickedKafelIDs = new int[2];
         lvlNo = 5;
-        aniMng = new AniMng();
+        aniMng = new AniMng(this);
         lvlMng = new LvlMng(this, lvlNo);
         setContentView(lvlMng.getLayout());
         counter = (TextView) findViewById(R.id.counter);
@@ -56,7 +56,6 @@ public class Level extends AppCompatActivity{
                 counter.setText("GO!");
             }
         }.start();
-        //aniMng.startAnimation(findViewById(R.id.kafel1), findViewById(R.id.kafel6));
     }
     public void previousOnclick(View view){
         action = 0;
@@ -71,31 +70,15 @@ public class Level extends AppCompatActivity{
         //setContentView(lvlMng.getLayout());
 
     }
+
     public void kafelOnclick(ImageButton clickedKafel){
         if(aniMng.animationSet.isRunning()) {
             return;
         }
-        clickedKafel.setBackgroundResource(R.color.darkPink);
+        clickedKafel.setBackgroundResource(R.drawable.kafel_cover_selected);
         clickedKafelIDs[action] = clickedKafel.getId();
         if(action == 1){
             aniMng.startAnimation(findViewById(clickedKafelIDs[0]), findViewById(clickedKafelIDs[1]));
-            //aniMng.waitForAnimationEnd();
-            aniMng.animationSet.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    findViewById(clickedKafelIDs[0]).setBackgroundResource(R.color.brightPink);
-                    findViewById(clickedKafelIDs[1]).setBackgroundResource(R.color.brightPink);
-
-                    float          x = findViewById(clickedKafelIDs[0]).getX();
-                    findViewById(clickedKafelIDs[0]).setX(findViewById(clickedKafelIDs[1]).getX());
-                    findViewById(clickedKafelIDs[1]).setX(x);
-
-                    float          y = findViewById(clickedKafelIDs[0]).getY();
-                    findViewById(clickedKafelIDs[0]).setY(findViewById(clickedKafelIDs[1]).getY());
-                    findViewById(clickedKafelIDs[1]).setY(y);
-                }
-            });
         }
         action = 1 - action;
     }

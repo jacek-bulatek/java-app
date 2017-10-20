@@ -13,12 +13,14 @@ import android.widget.ImageButton;
  */
 class AniMng {
     AnimatorSet animationSet;
+    Level window;
 
-    public AniMng(){
+    public AniMng(Level context){
         animationSet = new AnimatorSet();
+        window = context;
     }
 
-    void startAnimation(View kafel1, final View kafel2){
+    void startAnimation(final View kafel1, final View kafel2){
         ObjectAnimator scaleXKafel1 = ObjectAnimator.ofFloat(kafel1, "scaleX", 1.2f);
         scaleXKafel1.setDuration(1000);
         ObjectAnimator scaleYKafel1 = ObjectAnimator.ofFloat(kafel1, "scaleY", 1.2f);
@@ -46,6 +48,32 @@ class AniMng {
 
 
         animationSet = new AnimatorSet();
+        animationSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                window.lvlMng.deleteOncClickListeners();
+                kafel1.setElevation(6f);
+                kafel2.setElevation(6f);
+            }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                kafel1.setBackgroundResource(R.drawable.kafel_cover);
+                kafel2.setBackgroundResource(R.drawable.kafel_cover);
+                kafel1.setElevation(5f);
+                kafel2.setElevation(5f);
+
+                float x = kafel1.getX();
+                kafel1.setX(kafel2.getX());
+                kafel2.setX(x);
+
+                float y = kafel1.getY();
+                kafel1.setY(kafel2.getY());
+                kafel2.setY(y);
+
+                window.lvlMng.setOncClickListeners();
+            }
+        });
         animationSet.play(scaleXKafel1).with(scaleYKafel1);
         animationSet.play(scaleXKafel1).with(scaleXKafel2);
         animationSet.play(scaleXKafel2).with(scaleYKafel2);
