@@ -16,45 +16,45 @@ import static java.lang.Math.min;
  * Positioning Widgets in Level Activity Class
  */
 
-class LvlMng {
+class LevelMenager {
     Level window;
-    ConstraintLayout lvlLayout;
-    int minmarginx;
-    int minmarginy;
+    ConstraintLayout levelLayout;
+    int marginX;
+    int marginY;
     int space;
-    int kflamountx;
-    int kflamounty;
+    int tileAmountX;
+    int tileAmountY;
     int width;
     int height;
     int[] idList;
 
-    public LvlMng(Level context, int LvlNo){
+    public LevelMenager(Level context, int LevelNo){
         idList = new int[]{
-            R.id.kafel1, R.id.kafel2, R.id.kafel3, R.id.kafel4, R.id.kafel5,
-            R.id.kafel6, R.id.kafel7, R.id.kafel8, R.id.kafel9, R.id.kafel10,
-            R.id.kafel11, R.id.kafel12, R.id.kafel13, R.id.kafel14, R.id.kafel15,
-            R.id.kafel16, R.id.kafel17, R.id.kafel18, R.id.kafel19, R.id.kafel20,
-            R.id.kafel21, R.id.kafel22, R.id.kafel23, R.id.kafel24, R.id.kafel25,
-            R.id.kafel26, R.id.kafel27, R.id.kafel28, R.id.kafel29, R.id.kafel30
+            R.id.tile1, R.id.tile2, R.id.tile3, R.id.tile4, R.id.tile5,
+            R.id.tile6, R.id.tile7, R.id.tile8, R.id.tile9, R.id.tile10,
+            R.id.tile11, R.id.tile12, R.id.tile13, R.id.tile14, R.id.tile15,
+            R.id.tile16, R.id.tile17, R.id.tile18, R.id.tile19, R.id.tile20,
+            R.id.tile21, R.id.tile22, R.id.tile23, R.id.tile24, R.id.tile25,
+            R.id.tile26, R.id.tile27, R.id.tile28, R.id.tile29, R.id.tile30
         };
-        minmarginx = 16;
-        minmarginy = 16;
+        marginX = 16;
+        marginY = 16;
         space = 2;
-        kflamountx = 0;
-        kflamounty = 0;
+        tileAmountX = 0;
+        tileAmountY = 0;
         window = context;
         DisplayMetrics displaymetrics = new DisplayMetrics();
         window.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         width = displaymetrics.widthPixels;
         height = displaymetrics.heightPixels;
-        setLayout(setKafels(LvlNo));
+        setLayout(settiles(LevelNo));
     }
 
-    protected void setLayout(int kafelNo){
-        final ImageButton[] buttArr = new ImageButton[kafelNo];
-        int edge = kafelEdge(kflamountx, kflamounty);
-        lvlLayout = new ConstraintLayout(window);
-        lvlLayout.setId(R.id.Level_layout);
+    protected void setLayout(int tileAmount){
+        final ImageButton[] buttonsArr = new ImageButton[tileAmount];
+        int edge = tileEdge(tileAmountX, tileAmountY);
+        levelLayout = new ConstraintLayout(window);
+        levelLayout.setId(R.id.Level_layout);
 
         //  ---- SETTING CONSTANTS ----
 
@@ -64,7 +64,7 @@ class LvlMng {
         final Button next = new Button(window);
         TextView counter = new TextView(window);
         ImageView fullImage = new ImageView(window);
-        ConstraintLayout kafelField = new ConstraintLayout(window);
+        ConstraintLayout tileField = new ConstraintLayout(window);
 
         //  ---- SETTINGS IDs OF CONSTANT WIDGETS ----
         start.setId(R.id.start);
@@ -72,11 +72,11 @@ class LvlMng {
         next.setId(R.id.next);
         counter.setId(R.id.counter);
         fullImage.setId(R.id.full_image);
-        kafelField.setId(R.id.Kafel_Field);
+        tileField.setId(R.id.tile_Field);
 
         //  ---- FULL IMAGE PARAMS ----
         int fullImageWidth = (int) (width * 0.2);
-        int fullImageHeight = (int) (fullImageWidth*kflamounty/kflamountx);
+        int fullImageHeight = (int) (fullImageWidth* tileAmountY / tileAmountX);
         ConstraintLayout.LayoutParams fullImageParams = new ConstraintLayout.LayoutParams(fullImageWidth, fullImageHeight);
         fullImageParams.topToTop = R.id.Level_layout;
         fullImageParams.rightToRight = R.id.Level_layout;
@@ -140,113 +140,113 @@ class LvlMng {
         counter.setTextSize(24);
         counter.setText(""+fullImageHeight);
 
-        //  ---- KAFEL FIELD PARAMS ----
-        ConstraintLayout.LayoutParams kafelFieldParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        kafelFieldParams.leftToLeft = R.id.Level_layout;
-        kafelFieldParams.rightToLeft = R.id.full_image;
-        kafelFieldParams.topToTop = R.id.Level_layout;
-        kafelFieldParams.topMargin = 0;
-        kafelField.setLayoutParams(kafelFieldParams);
+        //  ---- tile FIELD PARAMS ----
+        ConstraintLayout.LayoutParams tileFieldParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        tileFieldParams.leftToLeft = R.id.Level_layout;
+        tileFieldParams.rightToLeft = R.id.full_image;
+        tileFieldParams.topToTop = R.id.Level_layout;
+        tileFieldParams.topMargin = 0;
+        tileField.setLayoutParams(tileFieldParams);
 
         //  ---- ADD CONSTANT WIDGETS TO LAYOUT ----
-        lvlLayout.addView(previous);
-        lvlLayout.addView(next);
-        lvlLayout.addView(start);
-        lvlLayout.addView(fullImage);
-        lvlLayout.addView(counter);
-        lvlLayout.addView(kafelField);
+        levelLayout.addView(previous);
+        levelLayout.addView(next);
+        levelLayout.addView(start);
+        levelLayout.addView(fullImage);
+        levelLayout.addView(counter);
+        levelLayout.addView(tileField);
 
 
-        //  ---- SETTING KAFELS ----
+        //  ---- SETTING tileS ----
 
-        //  ---- CREATING INSTANCES OF KAFELS ----
+        //  ---- CREATING INSTANCES OF tileS ----
 
-        for (int i = 0; i < kafelNo; i++)
-            buttArr[i] = new ImageButton(window);
+        for (int i = 0; i < tileAmount; i++)
+            buttonsArr[i] = new ImageButton(window);
 
-        //  ---- SETTING IDs FOR KAFELS ----
+        //  ---- SETTING IDs FOR tileS ----
 
-        for (int i = 0; i < kafelNo; i++)
-            buttArr[i].setId(idList[i]);
+        for (int i = 0; i < tileAmount; i++)
+            buttonsArr[i].setId(idList[i]);
 
-        //  ---- SETTING KAFELS PARAMS ----
+        //  ---- SETTING tileS PARAMS ----
 
-        ConstraintLayout.LayoutParams[] kafelParams = new ConstraintLayout.LayoutParams[kafelNo];
-        for (int i = 0; i < kafelNo; i++) {
-            kafelParams[i] = new ConstraintLayout.LayoutParams(edge, edge);
-            kafelParams[i].rightToRight = R.id.Kafel_Field;
-            kafelParams[i].topToTop = R.id.Kafel_Field;
-            kafelParams[i].bottomToBottom = R.id.Kafel_Field;
-            kafelParams[i].leftToLeft = R.id.Kafel_Field;
+        ConstraintLayout.LayoutParams[] tileParams = new ConstraintLayout.LayoutParams[tileAmount];
+        for (int i = 0; i < tileAmount; i++) {
+            tileParams[i] = new ConstraintLayout.LayoutParams(edge, edge);
+            tileParams[i].rightToRight = R.id.tile_Field;
+            tileParams[i].topToTop = R.id.tile_Field;
+            tileParams[i].bottomToBottom = R.id.tile_Field;
+            tileParams[i].leftToLeft = R.id.tile_Field;
 
         }
 
-        for (int i = 0; i < kflamounty; i++) {
-            for (int j = 0; j < kflamountx; j++) {
-                int index = i * kflamountx + j;
-                int rightMargin = minmarginx + j * edge + j * space;
-                int topMargin = minmarginy + i * edge + i * space;
-                int leftMargin = minmarginx + (kflamountx - j - 1) * edge + (kflamountx - j - 1) * space;
-                int bottomMargin = minmarginy + (kflamounty - i - 1) * edge + (kflamounty - i - 1) * space;
-                kafelParams[index].rightMargin = rightMargin;
-                kafelParams[index].topMargin = topMargin;
-                kafelParams[index].leftMargin = leftMargin;
-                kafelParams[index].bottomMargin = bottomMargin;
-                buttArr[index].setLayoutParams(kafelParams[index]);
-                buttArr[index].setBackgroundResource(R.drawable.kafel_cover);
+        for (int i = 0; i < tileAmountY; i++) {
+            for (int j = 0; j < tileAmountX; j++) {
+                int index = i * tileAmountX + j;
+                int rightMargin = marginX + j * edge + j * space;
+                int topMargin = marginY + i * edge + i * space;
+                int leftMargin = marginX + (tileAmountX - j - 1) * edge + (tileAmountX - j - 1) * space;
+                int bottomMargin = marginY + (tileAmountY - i - 1) * edge + (tileAmountY - i - 1) * space;
+                tileParams[index].rightMargin = rightMargin;
+                tileParams[index].topMargin = topMargin;
+                tileParams[index].leftMargin = leftMargin;
+                tileParams[index].bottomMargin = bottomMargin;
+                buttonsArr[index].setLayoutParams(tileParams[index]);
+                buttonsArr[index].setBackgroundResource(R.drawable.tile_cover);
 
-                kafelField.addView(buttArr[index]);
+                tileField.addView(buttonsArr[index]);
             }
         }
-        //  ---- SETTING KAFELS OnClick LISTENERS ----
+        //  ---- SETTING tileS OnClick LISTENERS ----
 
-        for (int i = 0; i < kafelNo; i++){
-            buttArr[i].setOnClickListener(new View.OnClickListener() {
+        for (int i = 0; i < tileAmount; i++){
+            buttonsArr[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    window.kafelOnclick((ImageButton) view);
+                    window.tileOnclick((ImageButton) view);
                 }
             });
         }
     }
 
-    public ConstraintLayout getLayout(){ return lvlLayout;}
+    public ConstraintLayout getLayout(){ return levelLayout;}
 
-    protected int setKafels(int lvlNo){
-        switch (lvlNo) {
+    protected int settiles(int levelNo){
+        switch (levelNo) {
             case 1:
-                kflamountx = 2;
-                kflamounty = 1;
+                tileAmountX = 2;
+                tileAmountY = 1;
                 break;
             case 2:
-                kflamountx = 2;
-                kflamounty = 2;
+                tileAmountX = 2;
+                tileAmountY = 2;
                 break;
             case 3:
             case 4:
-                kflamountx = 3;
-                kflamounty = 2;
+                tileAmountX = 3;
+                tileAmountY = 2;
                 break;
             case 5:
             case 6:
             case 7:
-                kflamountx = 3;
-                kflamounty = 3;
+                tileAmountX = 3;
+                tileAmountY = 3;
                 break;
             case 8:
-                kflamountx = 4;
-                kflamounty = 3;
+                tileAmountX = 4;
+                tileAmountY = 3;
                 break;
             default:
-                kflamountx = 0;
-                kflamounty = 0;
+                tileAmountX = 0;
+                tileAmountY = 0;
                 break;
         }
-        return kflamountx*kflamounty;
+        return tileAmountX * tileAmountY;
     }
-    public int kafelEdge(int kflx, int kfly){
-        int x=(int)((0.8*width-2*minmarginx-(kflx-1)*space)/kflx);
-        int y=(int)((0.8*height-2*minmarginy-(kfly-1)*space)/kfly);
+    public int tileEdge(int kflx, int kfly){
+        int x=(int)((0.8*width-2* marginX -(kflx-1)*space)/kflx);
+        int y=(int)((0.8*height-2* marginY -(kfly-1)*space)/kfly);
         return min(x,y);
     }
     public void setOncClickListeners(){
@@ -254,7 +254,7 @@ class LvlMng {
         window.findViewById(R.id.next).setClickable(true);
         window.findViewById(R.id.start).setClickable(true);
 
-        for (int i = 0; i < kflamountx*kflamounty; i++)
+        for (int i = 0; i < tileAmountX * tileAmountY; i++)
             window.findViewById(idList[i]).setClickable(true);
     }
     public void deleteOncClickListeners(){
@@ -262,7 +262,7 @@ class LvlMng {
         window.findViewById(R.id.next).setClickable(false);
         window.findViewById(R.id.start).setClickable(false);
 
-        for (int i = 0; i < kflamountx*kflamounty; i++)
+        for (int i = 0; i < tileAmountX * tileAmountY; i++)
             window.findViewById(idList[i]).setClickable(false);
     }
 }
