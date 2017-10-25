@@ -16,7 +16,7 @@ import static java.lang.Math.min;
  * Positioning Widgets in Level Activity Class
  */
 
-class LevelMenager {
+class LevelManager {
     Level window;
     ConstraintLayout levelLayout;
     int marginX;
@@ -28,7 +28,7 @@ class LevelMenager {
     int height;
     int[] idList;
 
-    public LevelMenager(Level context, int LevelNo){
+    public LevelManager(Level context, int LevelNo){
         idList = new int[]{
             R.id.tile1, R.id.tile2, R.id.tile3, R.id.tile4, R.id.tile5,
             R.id.tile6, R.id.tile7, R.id.tile8, R.id.tile9, R.id.tile10,
@@ -47,7 +47,7 @@ class LevelMenager {
         window.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         width = displaymetrics.widthPixels;
         height = displaymetrics.heightPixels;
-        setLayout(settiles(LevelNo));
+        setLayout(setTiles(LevelNo));
     }
 
     protected void setLayout(int tileAmount){
@@ -72,7 +72,7 @@ class LevelMenager {
         next.setId(R.id.next);
         counter.setId(R.id.counter);
         fullImage.setId(R.id.full_image);
-        tileField.setId(R.id.tile_Field);
+        tileField.setId(R.id.Tile_field);
 
         //  ---- FULL IMAGE PARAMS ----
         int fullImageWidth = (int) (width * 0.2);
@@ -174,10 +174,10 @@ class LevelMenager {
         ConstraintLayout.LayoutParams[] tileParams = new ConstraintLayout.LayoutParams[tileAmount];
         for (int i = 0; i < tileAmount; i++) {
             tileParams[i] = new ConstraintLayout.LayoutParams(edge, edge);
-            tileParams[i].rightToRight = R.id.tile_Field;
-            tileParams[i].topToTop = R.id.tile_Field;
-            tileParams[i].bottomToBottom = R.id.tile_Field;
-            tileParams[i].leftToLeft = R.id.tile_Field;
+            tileParams[i].rightToRight = R.id.Tile_field;
+            tileParams[i].topToTop = R.id.Tile_field;
+            tileParams[i].bottomToBottom = R.id.Tile_field;
+            tileParams[i].leftToLeft = R.id.Tile_field;
 
         }
 
@@ -212,7 +212,7 @@ class LevelMenager {
 
     public ConstraintLayout getLayout(){ return levelLayout;}
 
-    protected int settiles(int levelNo){
+    protected int setTiles(int levelNo){
         switch (levelNo) {
             case 1:
                 tileAmountX = 2;

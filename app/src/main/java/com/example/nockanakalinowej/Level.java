@@ -21,8 +21,8 @@ public class Level extends AppCompatActivity{
     Button startButton;
     Button previousButton;
     Button nextButton;
-    LevelMenager levelMenager;
-    AnimationMenager animationMenager;
+    LevelManager levelManager;
+    AnimationManager animationManager;
     int levelNo;
     int action;
     int[] clickedTileIDs;
@@ -34,9 +34,9 @@ public class Level extends AppCompatActivity{
         action = 0;
         clickedTileIDs = new int[2];
         levelNo = 5;
-        animationMenager = new AnimationMenager(this);
-        levelMenager = new LevelMenager(this, levelNo);
-        setContentView(levelMenager.getLayout());
+        animationManager = new AnimationManager(this);
+        levelManager = new LevelManager(this, levelNo);
+        setContentView(levelManager.getLayout());
         counter = (TextView) findViewById(R.id.counter);
         startButton = (Button) findViewById(R.id.start);
         previousButton = (Button) findViewById(R.id.previous);
@@ -58,25 +58,25 @@ public class Level extends AppCompatActivity{
     public void previousOnclick(View view){
         action = 0;
         levelNo--;
-        //levelMenager = new LvlMng(this, levelNo);
-        //setContentView(levelMenager.getLayout());
+        //levelManager = new LvlMng(this, levelNo);
+        //setContentView(levelManager.getLayout());
     }
     public void nextOnclick(View view){
         action = 0;
         levelNo++;
-        //levelMenager = new LvlMng(this, levelNo);
-        //setContentView(levelMenager.getLayout());
+        //levelManager = new LvlMng(this, levelNo);
+        //setContentView(levelManager.getLayout());
 
     }
 
     public void tileOnclick(ImageButton clickedTile){
-        if(animationMenager.animationSet.isRunning()) {
+        if(animationManager.animationSet.isRunning()) {
             return;
         }
         clickedTile.setBackgroundResource(R.drawable.tile_cover_selected);
         clickedTileIDs[action] = clickedTile.getId();
         if(action == 1){
-            animationMenager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]));
+            animationManager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]));
         }
         action = 1 - action;
     }

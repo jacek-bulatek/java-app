@@ -9,11 +9,11 @@ import android.view.View;
 /**
  * Animation Manager
  */
-class AnimationMenager {
+class AnimationManager {
     AnimatorSet animationSet;
     Level window;
 
-    public AnimationMenager(Level context){
+    public AnimationManager(Level context){
         animationSet = new AnimatorSet();
         window = context;
     }
@@ -33,12 +33,12 @@ class AnimationMenager {
         scaleYTile2.setDuration(1000);
         ObjectAnimator translationXTile2 = ObjectAnimator.ofFloat(tile2, "translationX", tile1.getX()-tile2.getX());
         translationXTile2.setDuration(1000);
-        ObjectAnimator translationYTilel2 = ObjectAnimator.ofFloat(tile1, "translationY", tile2.getY()-tile1.getY());
-        translationYTilel2.setDuration(1000);
+        ObjectAnimator translationYTile2 = ObjectAnimator.ofFloat(tile1, "translationY", tile2.getY()-tile1.getY());
+        translationYTile2.setDuration(1000);
         ObjectAnimator reScaleXTile1 = ObjectAnimator.ofFloat(tile1, "scaleX", 1f);
-        scaleXTile1.setDuration(1000);
+        reScaleXTile1.setDuration(1000);
         ObjectAnimator reScaleYTile1 = ObjectAnimator.ofFloat(tile1, "scaleY", 1f);
-        scaleYTile1.setDuration(1000);
+        reScaleYTile1.setDuration(1000);
         ObjectAnimator reScaleXTile2 = ObjectAnimator.ofFloat(tile2, "scaleX", 1f);
         reScaleXTile2.setDuration(1000);
         ObjectAnimator reScaleYTile2 = ObjectAnimator.ofFloat(tile2, "scaleY", 1f);
@@ -49,7 +49,7 @@ class AnimationMenager {
         animationSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                window.levelMenager.deleteOncClickListeners();
+                window.levelManager.deleteOncClickListeners();
                 tile1.setElevation(6f);
                 tile2.setElevation(6f);
             }
@@ -69,7 +69,7 @@ class AnimationMenager {
                 tile1.setY(tile2.getY());
                 tile2.setY(y);
 
-                window.levelMenager.setOncClickListeners();
+                window.levelManager.setOncClickListeners();
             }
         });
         animationSet.play(scaleXTile1).with(scaleYTile1);
@@ -78,7 +78,7 @@ class AnimationMenager {
         animationSet.play(translationXTile1).with(translationXTile2);
         animationSet.play(translationXTile1).after(scaleXTile1);
         animationSet.play(translationXTile1).with(translationYTile1);
-        animationSet.play(translationXTile2).with(translationYTilel2);
+        animationSet.play(translationXTile2).with(translationYTile2);
         animationSet.play(reScaleXTile1).after(translationXTile1);
         animationSet.playTogether(reScaleXTile1,reScaleXTile2,reScaleYTile1,reScaleYTile2);
         animationSet.start();
