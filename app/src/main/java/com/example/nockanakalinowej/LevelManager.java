@@ -19,6 +19,7 @@ import static java.lang.Math.min;
 class LevelManager {
     Level window;
     ConstraintLayout levelLayout;
+    int levelNo;
     int marginX;
     int marginY;
     int space;
@@ -37,6 +38,7 @@ class LevelManager {
             R.id.tile21, R.id.tile22, R.id.tile23, R.id.tile24, R.id.tile25,
             R.id.tile26, R.id.tile27, R.id.tile28, R.id.tile29, R.id.tile30
         };
+        levelNo = LevelNo;
         marginX = 16;
         marginY = 16;
         space = 2;
@@ -83,7 +85,7 @@ class LevelManager {
         fullImageParams.rightMargin = 16;
         fullImageParams.topMargin = 16;
         fullImage.setLayoutParams(fullImageParams);
-        fullImage.setImageResource(R.drawable.lvl3_1_2);
+        fullImage.setImageResource(window.getResources().getIdentifier("full_"+levelNo+"_1", "drawable", window.getPackageName()));
 
         //  ---- PREVIOUS BUTTON PARAMS ----
         ConstraintLayout.LayoutParams previousParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -264,5 +266,11 @@ class LevelManager {
 
         for (int i = 0; i < tileAmountX * tileAmountY; i++)
             window.findViewById(idList[i]).setClickable(false);
+    }
+    public void shuffleBackground(){
+        for (int i = 0; i < tileAmountX*tileAmountY; i++) {
+            window.findViewById(idList[i]).setBackgroundResource(
+                    window.getResources().getIdentifier("piece_"+levelNo+"_1_"+(i+1), "drawable", window.getPackageName()));
+        }
     }
 }

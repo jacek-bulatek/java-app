@@ -33,7 +33,7 @@ public class Level extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         action = 0;
         clickedTileIDs = new int[2];
-        levelNo = 5;
+        levelNo = 2;
         animationManager = new AnimationManager(this);
         levelManager = new LevelManager(this, levelNo);
         setContentView(levelManager.getLayout());
@@ -54,6 +54,7 @@ public class Level extends AppCompatActivity{
                 counter.setText("GO!");
             }
         }.start();
+        levelManager.shuffleBackground();
     }
     public void previousOnclick(View view){
         action = 0;
@@ -70,7 +71,7 @@ public class Level extends AppCompatActivity{
     }
 
     public void tileOnclick(ImageButton clickedTile){
-        if(animationManager.animationSet.isRunning()) {
+        if(animationManager.switchTilesSet.isRunning()) {
             return;
         }
         clickedTile.setBackgroundResource(R.drawable.tile_cover_selected);
