@@ -1,5 +1,7 @@
 package com.example.nockanakalinowej;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,7 +35,7 @@ public class Level extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         action = 0;
         clickedTileIDs = new int[2];
-        levelNo = 5;
+        levelNo = 2;
         animationManager = new AnimationManager(this);
         levelManager = new LevelManager(this, levelNo);
         setContentView(levelManager.getLayout());
@@ -54,6 +56,7 @@ public class Level extends AppCompatActivity{
                 counter.setText("GO!");
             }
         }.start();
+        animationManager.shuffleAnimation(6);
     }
     public void previousOnclick(View view){
         action = 0;
@@ -70,13 +73,38 @@ public class Level extends AppCompatActivity{
     }
 
     public void tileOnclick(ImageButton clickedTile){
-        if(animationManager.animationSet.isRunning()) {
+        if(animationManager.switchTilesSet.isRunning()) {
             return;
         }
         clickedTile.setBackgroundResource(R.drawable.tile_cover_selected);
         clickedTileIDs[action] = clickedTile.getId();
         if(action == 1){
-            animationManager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]));
+            animationManager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]),
+                    new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationStart(animation);
+                            findViewById(clickedTileIDs[0]).setElevation(6f);
+                            findViewById(clickedTileIDs[1]).setElevation(6f);
+                            levelManager.deleteOncClickListeners();
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            findViewById(clickedTileIDs[0]).setBackgroundResource(R.drawable.tile_cover);
+                            findViewById(clickedTileIDs[1]).setBackgroundResource(R.drawable.tile_cover);
+                            findViewById(clickedTileIDs[0]).setElevation(5f);
+                            findViewById(clickedTileIDs[1]).setElevation(5f);
+                            levelManager.setOncClickListeners();
+                            float x = findViewById(clickedTileIDs[0]).getX();
+                            findViewById(clickedTileIDs[0]).setX(findViewById(clickedTileIDs[1]).getX());
+                            findViewById(clickedTileIDs[1]).setX(x);
+
+                            float y = findViewById(clickedTileIDs[0]).getY();
+                            findViewById(clickedTileIDs[0]).setY(findViewById(clickedTileIDs[1]).getY());
+                            findViewById(clickedTileIDs[1]).setY(y);
+                        }
+                    }, 600);
         }
         action = 1 - action;
     }
