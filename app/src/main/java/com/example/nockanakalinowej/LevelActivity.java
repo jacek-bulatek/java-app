@@ -1,5 +1,6 @@
 package com.example.nockanakalinowej;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +27,6 @@ public class LevelActivity extends AppCompatActivity{
     int viewHeight;
     ConstraintLayout tilesField;
     TextView counter;
-    Button startButton;
-    Button previousButton;
-    Button nextButton;
     ImageButton[] tilesButtons;
     ImageView fullImage;
 
@@ -65,6 +63,9 @@ public class LevelActivity extends AppCompatActivity{
         if ( level == null )
             throw new RuntimeException("Failed to get levelNo!!!");
 
+
+        setContentView(R.layout.activity_level);
+
         edge = tileEdge(level.tilesNoX, level.tilesNoY);
 
         // Create tiles IDs list from resources - TODO improve this shit in some way!
@@ -80,7 +81,17 @@ public class LevelActivity extends AppCompatActivity{
         tilesMarginY = 16;
         tilesSpace = 2;
 
-        ConstraintLayout tilesField = new ConstraintLayout(this);
+        // Creating tiles
+        tilesButtons = new ImageButton[level.tilesNo];
+
+        for (int i = 0; i < level.tilesNo; i++)
+            tilesButtons[i] = new ImageButton(this);
+
+        for (int i = 0; i < level.tilesNo; i++)
+            tilesButtons[i].setId(tilesIDList[i]);
+
+        //  Setting tiles parameters
+        tilesField = new ConstraintLayout(this);
         tilesField.setId(R.id.Tile_field);
         ConstraintLayout.LayoutParams tilesFieldParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tilesFieldParams.leftToLeft = R.id.Level_layout;
@@ -89,20 +100,6 @@ public class LevelActivity extends AppCompatActivity{
         tilesFieldParams.topMargin = 0;
         tilesField.setLayoutParams(tilesFieldParams);
 
-        counter = (TextView) findViewById(R.id.counter);
-        startButton = (Button) findViewById(R.id.start);
-        previousButton = (Button) findViewById(R.id.previous);
-        nextButton = (Button) findViewById(R.id.next);
-        tilesButtons = new ImageButton[level.tilesNo];
-
-        // Creating tiles
-        for (int i = 0; i < level.tilesNo; i++)
-            tilesButtons[i] = new ImageButton(this);
-
-        for (int i = 0; i < level.tilesNo; i++)
-            tilesButtons[i].setId(tilesIDList[i]);
-
-        //  Setting tiles parameters
         ConstraintLayout.LayoutParams[] tileParams = new ConstraintLayout.LayoutParams[level.tilesNo];
         for (int i = 0; i < level.tilesNo; i++) {
             tileParams[i] = new ConstraintLayout.LayoutParams(edge, edge);
@@ -140,9 +137,6 @@ public class LevelActivity extends AppCompatActivity{
         }
 
         // Setting full image params
-        fullImage = new ImageView(this);
-        fullImage.setId(R.id.full_image);
-        //  ---- FULL IMAGE PARAMS ----
         int fullImageWidth = (int) (viewWidth * 0.2);
         int fullImageHeight = (int) (fullImageWidth* level.tilesNoY / level.tilesNoX);
         ConstraintLayout.LayoutParams fullImageParams = new ConstraintLayout.LayoutParams(fullImageWidth, fullImageHeight);
@@ -150,29 +144,28 @@ public class LevelActivity extends AppCompatActivity{
         fullImageParams.rightToRight = R.id.Level_layout;
         fullImageParams.rightMargin = 16;
         fullImageParams.topMargin = 16;
+
+        fullImage = (ImageView) findViewById(R.id.full_image);
         fullImage.setLayoutParams(fullImageParams);
         fullImage.setImageResource(R.drawable.lvl3_1_2);
 
+        counter = (TextView) findViewById(R.id.counter);
+        counter.setText(""+fullImageHeight);
 
-        levelLayout = new ConstraintLayout(this);
-        levelLayout.setId(R.id.Level_layout);
-
-        levelLayout.addView(previousButton);
-        levelLayout.addView(nextButton);
-        levelLayout.addView(startButton);
-        levelLayout.addView(fullImage);
-        levelLayout.addView(counter);
+        levelLayout = (ConstraintLayout) findViewById(R.id.Level_layout);
         levelLayout.addView(tilesField);
-        setContentView(levelLayout);
 
+        if ( level.levelNo == 1) {
+            Button previousButton = (Button) findViewById(R.id.previous);
+            previousButton.setClickable(false);
+        }
 
-
-        action = 0;
         clickedTileIDs = new int[2];
         animationManager = new AnimationManager(this);
     }
 
     public void startOnclick(View view){
+        Button startButton = (Button) findViewById(R.id.start);
         startButton.setText("Restart");
         new CountDownTimer(9100, 1000) {
 
@@ -187,18 +180,23 @@ public class LevelActivity extends AppCompatActivity{
     }
 
     public void previousOnclick(View view){
-        action = 0;
-        //levelNo--;
-        //level = new LvlMng(this, levelNo);
-        //setContentView(level.getLayout());
+        Intent intent = new Intent(this, LevelActivity.class);
+
+        // Pass levelNo to LevelActivity activity
+        Bundle bundle = new Bundle();
+        bundle.putInt("levelNo", level.levelNo-1);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void nextOnclick(View view){
-        action = 0;
-        //levelNo++;
-        //level = new LvlMng(this, levelNo);
-        //setContentView(level.getLayout());
+        Intent intent = new Intent(this, LevelActivity.class);
 
+        // Pass levelNo to LevelActivity activity
+        Bundle bundle = new Bundle();
+        bundle.putInt("levelNo", level.levelNo+1);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void tileOnclick(ImageButton clickedTile){
