@@ -1,4 +1,6 @@
-package com.example.nockanakalinowej;
+package com.example.nockanakalinowej.Model;
+
+import com.example.nockanakalinowej.View.LevelActivity;
 
 import static java.lang.Math.min;
 
@@ -7,16 +9,19 @@ import static java.lang.Math.min;
  * Positioning Widgets in LevelActivity Activity Class
  */
 
-class Level extends Object {
+public class Level extends Object {
+    // TODO - add getters for the following members
+    public int levelNo;
+    public int tilesNo;
+    public int tilesNoX;
+    public int tilesNoY;
 
-    int levelNo;
-    int tilesNo;
-    int tilesNoX;
-    int tilesNoY;
+    public TilesMatrix tilesMatrix;
 
     public Level(LevelActivity context, int _levelNo) {
         levelNo = _levelNo;
         tilesNo = setTiles(levelNo);
+        tilesMatrix = new TilesMatrix(tilesNoX, tilesNoY);
     }
 
     protected int setTiles(int levelNo){

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nockanakalinowej.LevelSelectScreen"
+    tools:context="com.example.nockanakalinowej.View.LevelSelectScreen"
     android:background="@drawable/shapes">
 
     <Button

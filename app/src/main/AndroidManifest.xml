@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".StartScreen"
+            android:name=".View.StartScreen"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,14 +19,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LevelSelectScreen"
+            android:name=".View.LevelSelectScreen"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".LevelActivity"
+            android:name=".View.LevelActivity"
             android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".StartScreen" />
+                android:value=".View.StartScreen" />
         </activity>
     </application>
 
