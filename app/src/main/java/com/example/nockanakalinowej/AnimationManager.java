@@ -11,9 +11,9 @@ import android.view.View;
  */
 class AnimationManager {
     AnimatorSet animationSet;
-    Level window;
+    LevelActivity window;
 
-    public AnimationManager(Level context){
+    public AnimationManager(LevelActivity context){
         animationSet = new AnimatorSet();
         window = context;
     }
@@ -49,7 +49,7 @@ class AnimationManager {
         animationSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                window.levelManager.deleteOncClickListeners();
+                window.deleteOncClickListeners();
                 tile1.setElevation(6f);
                 tile2.setElevation(6f);
             }
@@ -69,7 +69,7 @@ class AnimationManager {
                 tile1.setY(tile2.getY());
                 tile2.setY(y);
 
-                window.levelManager.setOncClickListeners();
+                window.setOncClickListeners();
             }
         });
         animationSet.play(scaleXTile1).with(scaleYTile1);
