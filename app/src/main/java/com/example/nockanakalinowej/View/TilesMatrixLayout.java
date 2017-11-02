@@ -146,7 +146,7 @@ class TilesMatrixLayout extends ConstraintLayout {
 
     public int tileEdge(int tileX, int tileY){
         int x=(int)((0.8*viewWidth-2* tilesMarginX -(tileX-1)*tilesSpace)/tileX);
-        int y=(int)((0.8*viewWidth-2* tilesMarginY -(tileY-1)*tilesSpace)/tileY);
+        int y=(int)((0.8*viewHeight-2* tilesMarginY -(tileY-1)*tilesSpace)/tileY);
         return min(x,y);
     }
 }
