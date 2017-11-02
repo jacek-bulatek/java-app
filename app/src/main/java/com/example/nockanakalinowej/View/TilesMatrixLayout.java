@@ -82,7 +82,7 @@ class TilesMatrixLayout extends ConstraintLayout {
         tilesFieldParams.leftToLeft = R.id.Level_layout;
         tilesFieldParams.rightToLeft = R.id.full_image;
         tilesFieldParams.topToTop = R.id.Level_layout;
-        tilesFieldParams.topMargin = 0;
+        tilesFieldParams.topMargin = 16;
         setLayoutParams(tilesFieldParams);
 
         ConstraintLayout.LayoutParams[] tileParams = new ConstraintLayout.LayoutParams[tilesMatrix.tilesNo];
@@ -146,7 +146,7 @@ class TilesMatrixLayout extends ConstraintLayout {
 
     public int tileEdge(int tileX, int tileY){
         int x=(int)((0.8*viewWidth-2* tilesMarginX -(tileX-1)*tilesSpace)/tileX);
-        int y=(int)((0.8*viewWidth-2* tilesMarginY -(tileY-1)*tilesSpace)/tileY);
+        int y=(int)((0.8*viewHeight-2* tilesMarginY -(tileY-1)*tilesSpace)/tileY);
         return min(x,y);
     }
 }

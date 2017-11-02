@@ -87,7 +87,7 @@ public class LevelActivity extends AppCompatActivity{
 
         fullImage = (ImageView) findViewById(R.id.full_image);
         fullImage.setLayoutParams(fullImageParams);
-        fullImage.setImageResource(R.drawable.lvl3_1_2);
+        fullImage.setImageResource(R.drawable.full_3_1);
 
         counter = (TextView) findViewById(R.id.counter);
         counter.setText(""+fullImageHeight);
