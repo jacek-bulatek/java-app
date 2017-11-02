@@ -1,4 +1,4 @@
-package com.example.nockanakalinowej;
+package com.example.nockanakalinowej.View;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -6,16 +6,19 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
 
+import com.example.nockanakalinowej.R;
+
 /**
  * Animation Manager
  */
 class AnimationManager {
     AnimatorSet animationSet;
-    Level window;
+    TilesMatrixLayout context;
 
-    public AnimationManager(Level context){
+    public AnimationManager(TilesMatrixLayout _context){
         animationSet = new AnimatorSet();
-        window = context;
+        // TODO - what da fuck this shit is? AnimationManager shall know nothing about class which uses it
+        context = _context;
     }
 
     void startAnimation(final View tile1, final View tile2){
@@ -49,7 +52,7 @@ class AnimationManager {
         animationSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                window.levelManager.deleteOncClickListeners();
+                context.deleteOncClickListeners();
                 tile1.setElevation(6f);
                 tile2.setElevation(6f);
             }
@@ -69,7 +72,7 @@ class AnimationManager {
                 tile1.setY(tile2.getY());
                 tile2.setY(y);
 
-                window.levelManager.setOncClickListeners();
+                context.setOncClickListeners();
             }
         });
         animationSet.play(scaleXTile1).with(scaleYTile1);
