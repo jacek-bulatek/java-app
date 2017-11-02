@@ -90,7 +90,6 @@ public class LevelActivity extends AppCompatActivity{
         fullImage.setImageResource(R.drawable.full_3_1);
 
         counter = (TextView) findViewById(R.id.counter);
-        counter.setText(""+fullImageHeight);
 
         levelLayout = (ConstraintLayout) findViewById(R.id.Level_layout);
         levelLayout.addView(tilesField);

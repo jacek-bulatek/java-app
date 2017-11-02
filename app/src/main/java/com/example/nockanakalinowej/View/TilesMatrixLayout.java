@@ -82,7 +82,7 @@ class TilesMatrixLayout extends ConstraintLayout {
         tilesFieldParams.leftToLeft = R.id.Level_layout;
         tilesFieldParams.rightToLeft = R.id.full_image;
         tilesFieldParams.topToTop = R.id.Level_layout;
-        tilesFieldParams.topMargin = 16;
+        tilesFieldParams.topMargin = 0;
         setLayoutParams(tilesFieldParams);
 
         ConstraintLayout.LayoutParams[] tileParams = new ConstraintLayout.LayoutParams[tilesMatrix.tilesNo];
