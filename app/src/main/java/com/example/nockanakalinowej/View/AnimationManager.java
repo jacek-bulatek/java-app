@@ -14,11 +14,11 @@ import com.example.nockanakalinowej.R;
 class AnimationManager {
     AnimatorSet animationSet;
     TilesMatrixLayout context;
+    TilesMatrixEventListener eventListener;
 
-    public AnimationManager(TilesMatrixLayout _context){
-        animationSet = new AnimatorSet();
+    public AnimationManager(){
         // TODO - what da fuck this shit is? AnimationManager shall know nothing about class which uses it
-        context = _context;
+        eventListener = null;
     }
 
     void startAnimation(final View tile1, final View tile2){
@@ -52,13 +52,17 @@ class AnimationManager {
         animationSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                context.deleteOncClickListeners();
+                super.onAnimationStart(animation);
+                if (eventListener!=null)
+                    eventListener.onAnimationStart();
                 tile1.setElevation(6f);
                 tile2.setElevation(6f);
             }
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                if (eventListener!=null)
+                    eventListener.onAnimationEnd();
                 tile1.setBackgroundResource(R.drawable.tile_cover);
                 tile2.setBackgroundResource(R.drawable.tile_cover);
                 tile1.setElevation(5f);
@@ -71,8 +75,6 @@ class AnimationManager {
                 float y = tile1.getY();
                 tile1.setY(tile2.getY());
                 tile2.setY(y);
-
-                context.setOncClickListeners();
             }
         });
         animationSet.play(scaleXTile1).with(scaleYTile1);
@@ -85,5 +87,9 @@ class AnimationManager {
         animationSet.play(reScaleXTile1).after(translationXTile1);
         animationSet.playTogether(reScaleXTile1,reScaleXTile2,reScaleYTile1,reScaleYTile2);
         animationSet.start();
+    }
+
+    public void setEventListener(TilesMatrixEventListener listener) {
+        eventListener = listener;
     }
 }

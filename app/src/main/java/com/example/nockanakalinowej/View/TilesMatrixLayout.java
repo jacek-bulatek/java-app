@@ -40,20 +40,18 @@ class TilesMatrixLayout extends ConstraintLayout {
         viewHeight = _viewHeight;
         tilesMatrix = _tilesMatrix;
 
-        animationManager = new AnimationManager(this);
+        animationManager = new AnimationManager();
+
         clickedTileIDs = new int[2];
 
         edge = tileEdge(tilesMatrix.tilesNoX, tilesMatrix.tilesNoY);
 
-        // Create tiles IDs list from resources - TODO improve this shit in some way!
-        tilesIDList = new int[]{
-                R.id.tile1, R.id.tile2, R.id.tile3, R.id.tile4, R.id.tile5,
-                R.id.tile6, R.id.tile7, R.id.tile8, R.id.tile9, R.id.tile10,
-                R.id.tile11, R.id.tile12, R.id.tile13, R.id.tile14, R.id.tile15,
-                R.id.tile16, R.id.tile17, R.id.tile18, R.id.tile19, R.id.tile20,
-                R.id.tile21, R.id.tile22, R.id.tile23, R.id.tile24, R.id.tile25,
-                R.id.tile26, R.id.tile27, R.id.tile28, R.id.tile29, R.id.tile30
-        };
+        // Create tiles IDs list from resources
+        tilesIDList = new int[tilesMatrix.tilesNo];
+        for (int i = 0; i < tilesMatrix.tilesNo; i++)
+        {
+            tilesIDList[i] = context.getResources().getIdentifier("tile"+i, "id", context.getPackageName());
+        }
         tilesMarginX = 16;
         tilesMarginY = 16;
         tilesSpace = 2;
@@ -127,21 +125,25 @@ class TilesMatrixLayout extends ConstraintLayout {
 
     public void setEventListener(TilesMatrixEventListener listener) {
         eventListener = listener;
-    }
+        animationManager.setEventListener(new TilesMatrixEventListener() {
+            @Override
+            public void onAnimationStart() {
+                if (eventListener != null)
+                    eventListener.onAnimationStart();
 
-    public void setOncClickListeners() {
-        if (eventListener != null)
-            eventListener.onAnimationEnd();
+                for (int i = 0; i < tilesMatrix.tilesNo; i++)
+                    findViewById(tilesIDList[i]).setClickable(false);
+            }
 
-        for (int i = 0; i < tilesMatrix.tilesNoX * tilesMatrix.tilesNoY; i++)
-            findViewById(tilesIDList[i]).setClickable(true);
-    }
-    public void deleteOncClickListeners() {
-        if (eventListener != null)
-            eventListener.onAnimationStart();
+            @Override
+            public void onAnimationEnd() {
+                if (eventListener != null)
+                    eventListener.onAnimationEnd();
 
-        for (int i = 0; i < tilesMatrix.tilesNoX * tilesMatrix.tilesNoY; i++)
-            findViewById(tilesIDList[i]).setClickable(false);
+                for (int i = 0; i < tilesMatrix.tilesNo; i++)
+                    findViewById(tilesIDList[i]).setClickable(true);
+            }
+        });
     }
 
     public int tileEdge(int tileX, int tileY){
