@@ -44,11 +44,11 @@ class TilesMatrixLayout extends ConstraintLayout {
 
         clickedTileIDs = new int[2];
 
-        edge = tileEdge(tilesMatrix.tilesNoX, tilesMatrix.tilesNoY);
+        edge = tileEdge(tilesMatrix.getTilesNoX(), tilesMatrix.getTilesNoY());
 
         // Create tiles IDs list from resources
-        tilesIDList = new int[tilesMatrix.tilesNo];
-        for (int i = 0; i < tilesMatrix.tilesNo; i++)
+        tilesIDList = new int[tilesMatrix.getTilesNo()];
+        for (int i = 0; i < tilesMatrix.getTilesNo(); i++)
         {
             tilesIDList[i] = context.getResources().getIdentifier("tile"+i, "id", context.getPackageName());
         }
@@ -58,16 +58,16 @@ class TilesMatrixLayout extends ConstraintLayout {
 
 
         // Creating tiles buttons
-        tilesButtons = new ImageButton[tilesMatrix.tilesNo];
+        tilesButtons = new ImageButton[tilesMatrix.getTilesNo()];
 
-        for (int i = 0; i < tilesMatrix.tilesNo; i++)
+        for (int i = 0; i < tilesMatrix.getTilesNo(); i++)
             tilesButtons[i] = new ImageButton(context);
 
-        for (int i = 0; i < tilesMatrix.tilesNo; i++)
+        for (int i = 0; i < tilesMatrix.getTilesNo(); i++)
             tilesButtons[i].setId(tilesIDList[i]);
 
 
-        for (int i = 0; i < tilesMatrix.tilesNo; i++){
+        for (int i = 0; i < tilesMatrix.getTilesNo(); i++){
             tilesButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -83,8 +83,8 @@ class TilesMatrixLayout extends ConstraintLayout {
         tilesFieldParams.topMargin = 0;
         setLayoutParams(tilesFieldParams);
 
-        ConstraintLayout.LayoutParams[] tileParams = new ConstraintLayout.LayoutParams[tilesMatrix.tilesNo];
-        for (int i = 0; i < tilesMatrix.tilesNo; i++) {
+        ConstraintLayout.LayoutParams[] tileParams = new ConstraintLayout.LayoutParams[tilesMatrix.getTilesNo()];
+        for (int i = 0; i < tilesMatrix.getTilesNo(); i++) {
             tileParams[i] = new ConstraintLayout.LayoutParams(edge, edge);
             tileParams[i].rightToRight = R.id.Tile_field;
             tileParams[i].topToTop = R.id.Tile_field;
@@ -92,13 +92,13 @@ class TilesMatrixLayout extends ConstraintLayout {
             tileParams[i].leftToLeft = R.id.Tile_field;
         }
 
-        for (int i = 0; i < tilesMatrix.tilesNoY; i++) {
-            for (int j = 0; j < tilesMatrix.tilesNoX; j++) {
-                int index = i * tilesMatrix.tilesNoX + j;
+        for (int i = 0; i < tilesMatrix.getTilesNoY(); i++) {
+            for (int j = 0; j < tilesMatrix.getTilesNoX(); j++) {
+                int index = i * tilesMatrix.getTilesNoX() + j;
                 int rightMargin = tilesMarginX + j * edge + j * tilesSpace;
                 int topMargin = tilesMarginY + i * edge + i * tilesSpace;
-                int leftMargin = tilesMarginX + (tilesMatrix.tilesNoX - j - 1) * edge + (tilesMatrix.tilesNoX - j - 1) * tilesSpace;
-                int bottomMargin = tilesMarginY + (tilesMatrix.tilesNoY - i - 1) * edge + (tilesMatrix.tilesNoY - i - 1) * tilesSpace;
+                int leftMargin = tilesMarginX + (tilesMatrix.getTilesNoX() - j - 1) * edge + (tilesMatrix.getTilesNoX() - j - 1) * tilesSpace;
+                int bottomMargin = tilesMarginY + (tilesMatrix.getTilesNoY() - i - 1) * edge + (tilesMatrix.getTilesNoY() - i - 1) * tilesSpace;
                 tileParams[index].rightMargin = rightMargin;
                 tileParams[index].topMargin = topMargin;
                 tileParams[index].leftMargin = leftMargin;
@@ -121,12 +121,12 @@ class TilesMatrixLayout extends ConstraintLayout {
     }
 
     public void setTilesClickable(){
-        for (int i = 0; i < tilesMatrix.tilesNo; i++)
+        for (int i = 0; i < tilesMatrix.getTilesNo(); i++)
             findViewById(tilesIDList[i]).setClickable(true);
     }
 
     public void removeTilesClickable(){
-        for (int i = 0; i < tilesMatrix.tilesNo; i++)
+        for (int i = 0; i < tilesMatrix.getTilesNo(); i++)
             findViewById(tilesIDList[i]).setClickable(false);
     }
 

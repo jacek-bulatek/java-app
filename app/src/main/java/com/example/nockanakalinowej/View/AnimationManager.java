@@ -13,7 +13,6 @@ import com.example.nockanakalinowej.R;
  */
 class AnimationManager {
     AnimatorSet animationSet;
-    TilesMatrixLayout context;
     TilesMatrixEventListener eventListener;
 
     public void startAnimation(final View tile1, final View tile2){

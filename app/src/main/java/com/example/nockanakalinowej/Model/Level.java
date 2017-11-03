@@ -10,11 +10,10 @@ import static java.lang.Math.min;
  */
 
 public class Level extends Object {
-    // TODO - add getters for the following members
-    public int levelNo;
-    public int tilesNo;
-    public int tilesNoX;
-    public int tilesNoY;
+    int levelNo;
+    int tilesNo;
+    int tilesNoX;
+    int tilesNoY;
 
     public TilesMatrix tilesMatrix;
 
@@ -56,4 +55,8 @@ public class Level extends Object {
         }
         return tilesNoX * tilesNoY;
     }
+    public int getLevelNo(){return levelNo;}
+    public int getTilesNo(){return tilesNo;}
+    public int getTilesNoX(){return tilesNoX;}
+    public int getTilesNoY(){return tilesNoY;}
 }
