@@ -111,6 +111,8 @@ class TilesMatrixLayout extends ConstraintLayout {
         }
     }
 
+    public void setEventListener(TilesMatrixEventListener listener){animationManager.setEventListener(listener);}
+
     public void tileOnclick(ImageButton clickedTile){
         clickedTile.setBackgroundResource(R.drawable.tile_cover_selected);
         clickedTileIDs[action] = clickedTile.getId();
