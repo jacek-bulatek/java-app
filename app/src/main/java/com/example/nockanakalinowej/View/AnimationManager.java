@@ -16,12 +16,7 @@ class AnimationManager {
     TilesMatrixLayout context;
     TilesMatrixEventListener eventListener;
 
-    public AnimationManager(){
-        // TODO - what da fuck this shit is? AnimationManager shall know nothing about class which uses it
-        eventListener = null;
-    }
-
-    void startAnimation(final View tile1, final View tile2){
+    public void startAnimation(final View tile1, final View tile2){
         ObjectAnimator scaleXTile1 = ObjectAnimator.ofFloat(tile1, "scaleX", 1.2f);
         scaleXTile1.setDuration(1000);
         ObjectAnimator scaleYTile1 = ObjectAnimator.ofFloat(tile1, "scaleY", 1.2f);

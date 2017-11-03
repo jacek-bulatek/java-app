@@ -19,11 +19,11 @@ class TilesMatrixLayout extends ConstraintLayout {
     private int action = 0;
     private int[] tilesIDList;
     private int[] clickedTileIDs;
+    AnimationManager animationManager;
 
     private TilesMatrixEventListener eventListener;
 
     TilesMatrix tilesMatrix;
-    AnimationManager animationManager;
 
     ImageButton[] tilesButtons;
     int edge;
@@ -112,9 +112,6 @@ class TilesMatrixLayout extends ConstraintLayout {
     }
 
     public void tileOnclick(ImageButton clickedTile){
-        if(animationManager.animationSet.isRunning()) {
-            return;
-        }
         clickedTile.setBackgroundResource(R.drawable.tile_cover_selected);
         clickedTileIDs[action] = clickedTile.getId();
         if(action == 1){
@@ -123,27 +120,14 @@ class TilesMatrixLayout extends ConstraintLayout {
         action = 1 - action;
     }
 
-    public void setEventListener(TilesMatrixEventListener listener) {
-        eventListener = listener;
-        animationManager.setEventListener(new TilesMatrixEventListener() {
-            @Override
-            public void onAnimationStart() {
-                if (eventListener != null)
-                    eventListener.onAnimationStart();
+    public void setTilesClickable(){
+        for (int i = 0; i < tilesMatrix.tilesNo; i++)
+            findViewById(tilesIDList[i]).setClickable(true);
+    }
 
-                for (int i = 0; i < tilesMatrix.tilesNo; i++)
-                    findViewById(tilesIDList[i]).setClickable(false);
-            }
-
-            @Override
-            public void onAnimationEnd() {
-                if (eventListener != null)
-                    eventListener.onAnimationEnd();
-
-                for (int i = 0; i < tilesMatrix.tilesNo; i++)
-                    findViewById(tilesIDList[i]).setClickable(true);
-            }
-        });
+    public void removeTilesClickable(){
+        for (int i = 0; i < tilesMatrix.tilesNo; i++)
+            findViewById(tilesIDList[i]).setClickable(false);
     }
 
     public int tileEdge(int tileX, int tileY){

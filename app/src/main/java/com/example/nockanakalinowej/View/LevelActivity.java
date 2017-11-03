@@ -27,6 +27,7 @@ public class LevelActivity extends AppCompatActivity{
     int viewWidth;
     int viewHeight;
     TilesMatrixLayout tilesField;
+    AnimationManager animationManager;
     TextView counter;
     ImageView fullImage;
 
@@ -44,6 +45,7 @@ public class LevelActivity extends AppCompatActivity{
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         viewWidth = displaymetrics.widthPixels;
         viewHeight = displaymetrics.heightPixels;
+        animationManager = new AnimationManager();
 
 
         // Grab levelNo from LevelSelectScreen activity
@@ -60,9 +62,10 @@ public class LevelActivity extends AppCompatActivity{
         //  Setting tiles matrix layout
         tilesField = new TilesMatrixLayout(this, viewWidth, viewHeight, level.tilesMatrix);
         tilesField.setId(R.id.Tile_field);
-        tilesField.setEventListener(new TilesMatrixEventListener() {
+        animationManager.setEventListener(new TilesMatrixEventListener() {
             @Override
             public void onAnimationStart() {
+                tilesField.removeTilesClickable();
                 findViewById(R.id.previous).setClickable(false);
                 findViewById(R.id.next).setClickable(false);
                 findViewById(R.id.start).setClickable(false);
@@ -70,6 +73,7 @@ public class LevelActivity extends AppCompatActivity{
 
             @Override
             public void onAnimationEnd() {
+                tilesField.setTilesClickable();
                 findViewById(R.id.previous).setClickable(true);
                 findViewById(R.id.next).setClickable(true);
                 findViewById(R.id.start).setClickable(true);
