@@ -63,6 +63,7 @@ public class LevelActivity extends AppCompatActivity{
         tilesField.setEventListener(new TilesMatrixEventListener() {
             @Override
             public void onAnimationStart() {
+                tilesField.removeTilesClickable();
                 findViewById(R.id.previous).setClickable(false);
                 findViewById(R.id.next).setClickable(false);
                 findViewById(R.id.start).setClickable(false);
@@ -70,6 +71,7 @@ public class LevelActivity extends AppCompatActivity{
 
             @Override
             public void onAnimationEnd() {
+                tilesField.setTilesClickable();
                 findViewById(R.id.previous).setClickable(true);
                 findViewById(R.id.next).setClickable(true);
                 findViewById(R.id.start).setClickable(true);
@@ -78,7 +80,7 @@ public class LevelActivity extends AppCompatActivity{
 
         // Setting full image params
         int fullImageWidth = (int) (viewWidth * 0.2);
-        int fullImageHeight = (int) (fullImageWidth* level.tilesNoY / level.tilesNoX);
+        int fullImageHeight = (int) (fullImageWidth* level.getTilesNoY() / level.getTilesNoX());
         ConstraintLayout.LayoutParams fullImageParams = new ConstraintLayout.LayoutParams(fullImageWidth, fullImageHeight);
         fullImageParams.topToTop = R.id.Level_layout;
         fullImageParams.rightToRight = R.id.Level_layout;
@@ -94,7 +96,7 @@ public class LevelActivity extends AppCompatActivity{
         levelLayout = (ConstraintLayout) findViewById(R.id.Level_layout);
         levelLayout.addView(tilesField);
 
-        if ( level.levelNo == 1) {
+        if ( level.getLevelNo() == 1) {
             Button previousButton = (Button) findViewById(R.id.previous);
             previousButton.setClickable(false);
         }
@@ -120,7 +122,7 @@ public class LevelActivity extends AppCompatActivity{
 
         // Pass levelNo to LevelActivity activity
         Bundle bundle = new Bundle();
-        bundle.putInt("levelNo", level.levelNo-1);
+        bundle.putInt("levelNo", level.getLevelNo()-1);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -130,7 +132,7 @@ public class LevelActivity extends AppCompatActivity{
 
         // Pass levelNo to LevelActivity activity
         Bundle bundle = new Bundle();
-        bundle.putInt("levelNo", level.levelNo+1);
+        bundle.putInt("levelNo", level.getLevelNo()+1);
         intent.putExtras(bundle);
         startActivity(intent);
     }
