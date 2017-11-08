@@ -124,7 +124,8 @@ public class LevelActivity extends AppCompatActivity{
         Bundle bundle = new Bundle();
         bundle.putInt("levelNo", level.getLevelNo()-1);
         intent.putExtras(bundle);
-        startActivity(intent);
+        setResult(LevelActivity.RESULT_OK, intent);
+        finish();
     }
 
     public void nextOnclick(View view){
@@ -134,6 +135,7 @@ public class LevelActivity extends AppCompatActivity{
         Bundle bundle = new Bundle();
         bundle.putInt("levelNo", level.getLevelNo()+1);
         intent.putExtras(bundle);
-        startActivity(intent);
+        setResult(LevelActivity.RESULT_OK, intent);
+        finish();
     }
 }
