@@ -7,10 +7,9 @@ import com.example.nockanakalinowej.Model.Tile;
  */
 
 public class TilesMatrix extends Object {
-    // TODO - add getters for the following members
-    public int tilesNoX;
-    public int tilesNoY;
-    public int tilesNo;
+    int tilesNoX;
+    int tilesNoY;
+    int tilesNo;
 
     Tile matrix[][];
 
@@ -28,4 +27,8 @@ public class TilesMatrix extends Object {
     public void switchTiles(int x1, int y1, int x2, int y2) {
 
     }
+
+    public int getTilesNoX(){return tilesNoX;}
+    public int getTilesNoY(){return tilesNoY;}
+    public int getTilesNo(){return tilesNo;}
 }
