@@ -8,16 +8,16 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.nockanakalinowej.Model.GameController;
 import com.example.nockanakalinowej.R;
 
-/*
- * Activity okna wyboru levelu
- * docelowo ma to być gridView z buttonami,
- * które odpalają LevelActivity z argumentem LvlNo;
+/**
+ * Created by Jacek Bulatek on 2017-11-01.
  */
 
 public class LevelSelectScreen extends AppCompatActivity {
     public static final int REQUEST_CODE = 1;
+    public GameController gameController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,16 +34,22 @@ public class LevelSelectScreen extends AppCompatActivity {
             }
         });
 
+        // Create tiles IDs list from resources
+        int[] tilesIDList = new int[getResources().getInteger(R.integer.tiles_IDs_No)];
+        for (int i = 0; i < getResources().getInteger(R.integer.tiles_IDs_No); i++)
+        {
+            tilesIDList[i] = getResources().getIdentifier("tile"+i, "id", getPackageName());
+        }
 
+        gameController = new GameController();
+        gameController.setAvailableTilesIDs(tilesIDList);
     }
 
     public void levelSelection(int levelNo){
-        Intent intent = new Intent(this, LevelActivity.class);
+        gameController.setLevel(levelNo);
 
-        // Pass tilesNo to LevelActivity activity
-        Bundle bundle = new Bundle();
-        bundle.putInt("levelNo", levelNo);
-        intent.putExtras(bundle);
+        Intent intent = new Intent(this, LevelActivity.class);
+        intent.putExtra("gameControllerObject", gameController);
         startActivityForResult(intent, REQUEST_CODE);
     }
     @Override
@@ -52,14 +58,9 @@ public class LevelSelectScreen extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
 
             if (resultCode == LevelActivity.RESULT_OK) {
-                int result = data.getIntExtra("levelNo", 0);
-                if (result != 0){
-                    Intent intent = new Intent(this, LevelActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("levelNo", result);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, REQUEST_CODE);
-                }
+                Intent intent = new Intent(this, LevelActivity.class);
+                intent.putExtra("gameControllerObject", gameController);
+                startActivityForResult(intent, REQUEST_CODE);
             } else if (resultCode == LevelActivity.RESULT_CANCELED) {
 
             }
