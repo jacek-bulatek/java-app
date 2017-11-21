@@ -1,9 +1,11 @@
 package com.example.nockanakalinowej.View;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 
@@ -13,10 +15,12 @@ import com.example.nockanakalinowej.R;
  * Created by Jacek on 2017-11-08.
  */
 
-class ImageAdapter extends BaseAdapter {
+class ButtonAdapter extends BaseAdapter {
     private Context context;
-    public ImageAdapter(Context _context) {
+    private int screenWidth;
+    public ButtonAdapter(Context _context, int _screenWidth) {
         context = _context;
+        screenWidth = _screenWidth;
     }
     public int getCount() {
         return mThumbIds.length;
@@ -33,22 +37,24 @@ class ImageAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageButton imageButton;
+        Button button;
+
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
-            imageButton = new ImageButton(context);
-            imageButton.setFocusable(false);
-            imageButton.setFocusableInTouchMode(false);
-            imageButton.setClickable(false);
-            imageButton.setLayoutParams(new GridView.LayoutParams(200, 200));
-            imageButton.setScaleType(ImageButton.ScaleType.CENTER_CROP);
-            imageButton.setPadding(8, 8, 8, 8);
+            button = new Button(context);
+            button.setFocusable(false);
+            button.setFocusableInTouchMode(false);
+            button.setClickable(false);
+            button.setLayoutParams(new GridView.LayoutParams(screenWidth/5, screenWidth/5));
+            button.setTextSize(24);
+            button.setText(""+(position+1));
+            button.setPadding(8, 8, 8, 8);
         } else {
-            imageButton = (ImageButton) convertView;
+            button = (Button) convertView;
         }
 
-        imageButton.setBackgroundResource(mThumbIds[position]);
-        return imageButton;
+        button.setBackgroundResource(mThumbIds[position]);
+        return button;
     }
 
     // references to our images
