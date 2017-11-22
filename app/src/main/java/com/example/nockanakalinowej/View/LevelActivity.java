@@ -27,6 +27,8 @@ import java.util.Map;
 public class LevelActivity extends AppCompatActivity{
     int viewWidth;
     int viewHeight;
+    public static final int RESULT_PREVIOUS = 100;
+    public static final int RESULT_NEXT = 101;
     TilesMatrixLayout tilesField;
     TextView tips;
     ImageView fullImage;
@@ -126,9 +128,10 @@ public class LevelActivity extends AppCompatActivity{
         levelLayout = (ConstraintLayout) findViewById(R.id.Level_layout);
         levelLayout.addView(tilesField);
 
-        if ( level.getLevelNo() == 1) {
+        if ( level.getLevelNo() == 0) {
             Button previousButton = (Button) findViewById(R.id.previous);
             previousButton.setClickable(false);
+            levelLayout.removeView(previousButton);
         }
     }
 
@@ -139,20 +142,14 @@ public class LevelActivity extends AppCompatActivity{
 
     public void previousOnclick(View view){
         Intent intent = new Intent(this, LevelActivity.class);
-
-        gameController.prevLevel();
-
-        setResult(LevelActivity.RESULT_OK, intent);
+        setResult(LevelActivity.RESULT_PREVIOUS, intent);
         finish();
     }
 
     public void nextOnclick(View view){
         Intent intent = new Intent(this, LevelActivity.class);
-
         // TODO Add verification that next level exist (nextLevel return value)
-        gameController.nextLevel();
-
-        setResult(LevelActivity.RESULT_OK, intent);
+        setResult(LevelActivity.RESULT_NEXT, intent);
         finish();
     }
 }

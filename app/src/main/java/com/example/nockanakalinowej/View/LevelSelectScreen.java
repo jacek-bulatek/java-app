@@ -62,12 +62,16 @@ public class LevelSelectScreen extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE) {
 
-            if (resultCode == LevelActivity.RESULT_OK) {
+            if (resultCode == LevelActivity.RESULT_PREVIOUS) {
+                gameController.prevLevel();
                 Intent intent = new Intent(this, LevelActivity.class);
                 intent.putExtra("gameControllerObject", gameController);
                 startActivityForResult(intent, REQUEST_CODE);
-            } else if (resultCode == LevelActivity.RESULT_CANCELED) {
-
+            } else if (resultCode == LevelActivity.RESULT_NEXT) {
+                gameController.nextLevel();
+                Intent intent = new Intent(this, LevelActivity.class);
+                intent.putExtra("gameControllerObject", gameController);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         }
     }
