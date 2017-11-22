@@ -9,8 +9,9 @@ import android.view.View;
 import com.example.nockanakalinowej.R;
 
 /**
- * Animation Manager
+ * Created by Jacek Bulatek on 2017-11-01.
  */
+
 class AnimationManager {
     AnimatorSet animationSet;
     TilesMatrixEventListener eventListener;
@@ -55,8 +56,6 @@ class AnimationManager {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                if (eventListener!=null)
-                    eventListener.onAnimationEnd();
                 tile1.setBackgroundResource(R.drawable.tile_cover);
                 tile2.setBackgroundResource(R.drawable.tile_cover);
                 tile1.setElevation(5f);
@@ -69,6 +68,15 @@ class AnimationManager {
                 float y = tile1.getY();
                 tile1.setY(tile2.getY());
                 tile2.setY(y);
+
+                /*tile1.setX(tile1.getX());
+                tile2.setX(tile2.getX());
+
+                tile1.setY(tile1.getY());
+                tile2.setY(tile2.getY());*/
+
+                if (eventListener!=null)
+                    eventListener.onAnimationEnd();
             }
         });
         animationSet.play(scaleXTile1).with(scaleYTile1);

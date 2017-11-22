@@ -1,62 +1,81 @@
 package com.example.nockanakalinowej.Model;
 
-import com.example.nockanakalinowej.View.LevelActivity;
-
-import static java.lang.Math.min;
+import java.io.Serializable;
+import java.util.Arrays;
 
 /*
- * Created by Jacek on 2017-10-11.
- * Positioning Widgets in LevelActivity Activity Class
+ * Created by Jacek Bulatek on 2017-10-11.
  */
 
-public class Level extends Object {
+class LevelProperties
+{
+    int tilesNoX;
+    int tilesNoY;
+    int cyclesNo;
+    int[] cyclesLengths;
+
+    public LevelProperties(int _tilesNoX, int _tilesNoY, int _cyclesNo, int[] _cyclesLengths) {
+        tilesNoX = _tilesNoX;
+        tilesNoY = _tilesNoY;
+        cyclesNo = _cyclesNo;
+        cyclesLengths = _cyclesLengths;
+    }
+};
+
+public class Level extends Object implements Serializable {
     int levelNo;
     int tilesNo;
     int tilesNoX;
     int tilesNoY;
+    boolean done;
+
+    int variant;
+    int cyclesNo;
+    int[] cyclesLengths;
+
+    int[] expectedTilesOrder;
 
     public TilesMatrix tilesMatrix;
 
-    public Level(LevelActivity context, int _levelNo) {
+    public Level(int _levelNo, LevelProperties _properties) {
         levelNo = _levelNo;
-        tilesNo = setTiles(levelNo);
+        tilesNoX = _properties.tilesNoX;
+        tilesNoY = _properties.tilesNoY;
+        cyclesNo = _properties.cyclesNo;
+        cyclesLengths = _properties.cyclesLengths.clone();
+        tilesNo = tilesNoX * tilesNoY;
+        done = false;
+        variant = 1;
+
         tilesMatrix = new TilesMatrix(tilesNoX, tilesNoY);
+
+        expectedTilesOrder = new int[tilesNo];
     }
 
-    protected int setTiles(int levelNo){
-        switch (levelNo) {
-            case 1:
-                tilesNoX = 2;
-                tilesNoY = 1;
-                break;
-            case 2:
-                tilesNoX = 2;
-                tilesNoY = 2;
-                break;
-            case 3:
-            case 4:
-                tilesNoX = 3;
-                tilesNoY = 2;
-                break;
-            case 5:
-            case 6:
-            case 7:
-                tilesNoX = 3;
-                tilesNoY = 3;
-                break;
-            case 8:
-                tilesNoX = 4;
-                tilesNoY = 3;
-                break;
-            default:
-                tilesNoX = 0;
-                tilesNoY = 0;
-                break;
-        }
-        return tilesNoX * tilesNoY;
+    public void setVariant(int _variant) { variant = _variant; }
+    public int getVariant() { return variant; }
+
+
+    public void setTilesIDs(int[] iTilesIDs) {
+        System.arraycopy(iTilesIDs, 0, expectedTilesOrder, 0, tilesNo);
+        tilesMatrix.setTilesIDs(expectedTilesOrder);
     }
+
+    public void shuffleTiles() {
+        tilesMatrix.shuffleTiles(cyclesNo, cyclesLengths);
+    }
+
     public int getLevelNo(){return levelNo;}
     public int getTilesNo(){return tilesNo;}
     public int getTilesNoX(){return tilesNoX;}
     public int getTilesNoY(){return tilesNoY;}
+
+    public void switchTiles(int ID1, int ID2) {
+        tilesMatrix.switchTiles(ID1, ID2);
+
+        if (Arrays.equals(expectedTilesOrder, tilesMatrix.getTilesOrder()))
+            done = true;
+    }
+
+    public boolean isDone() { return done; }
 }
