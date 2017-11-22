@@ -5,6 +5,7 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.nockanakalinowej.R;
 import com.example.nockanakalinowej.Model.TilesMatrix;
@@ -122,6 +123,8 @@ class TilesMatrixLayout extends ConstraintLayout {
                 tileParams[index].leftMargin = leftMargin;
                 tileParams[index].bottomMargin = bottomMargin;
                 tilesButtons[index].setLayoutParams(tileParams[index]);
+                tilesButtons[index].setScaleType(ImageView.ScaleType.CENTER_CROP);
+                tilesButtons[index].setPadding(1,1,1,1);
                 tilesButtons[index].setBackgroundResource(R.drawable.tile_cover);
 
                 addView(tilesButtons[index]);
