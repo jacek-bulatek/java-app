@@ -84,6 +84,8 @@ public class GameController extends Object implements Serializable {
         return availableTilesIDs.clone();
     }
 
+    public int getLevelsNo(){ return levels.length;}
+
     public void switchTiles(int ID1, int ID2) {
         currentLevel.switchTiles(ID1, ID2);
 

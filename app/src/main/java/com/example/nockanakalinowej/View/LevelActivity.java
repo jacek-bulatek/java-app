@@ -131,7 +131,12 @@ public class LevelActivity extends AppCompatActivity{
         if ( level.getLevelNo() == 0) {
             Button previousButton = (Button) findViewById(R.id.previous);
             previousButton.setClickable(false);
-            levelLayout.removeView(previousButton);
+            previousButton.setVisibility(View.INVISIBLE);
+        }
+        if ( level.getLevelNo() >= gameController.getLevelsNo()){
+            Button nextButton = (Button) findViewById(R.id.next);
+            nextButton.setClickable(false);
+            nextButton.setVisibility(View.INVISIBLE);
         }
     }
 
