@@ -141,8 +141,10 @@ class TilesMatrixLayout extends ConstraintLayout {
         clickedTile.setBackgroundResource(R.drawable.tile_cover_selected);
         clickedTileIDs[action] = clickedTile.getId();
         if(action == 1){
-            animationManager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]));
-
+            if (clickedTileIDs[0] != clickedTileIDs [1])
+                animationManager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]));
+            else
+                findViewById(clickedTileIDs[0]).setBackgroundResource(R.drawable.tile_cover);
         }
         action = 1 - action;
     }
