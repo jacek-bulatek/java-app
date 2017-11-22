@@ -3,6 +3,7 @@ package com.example.nockanakalinowej.View;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -24,7 +25,11 @@ public class LevelSelectScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_level_select_screen);
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int screenWidth = displaymetrics.widthPixels;
+        gridview.setColumnWidth(screenWidth/5);
+        gridview.setAdapter(new ButtonAdapter(this, screenWidth));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
