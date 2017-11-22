@@ -91,7 +91,7 @@ public class LevelActivity extends AppCompatActivity{
         int[] tilesIDs = gameController.getAvailableTilesIDs();
 
         for (int i = 0; i < level.getTilesNo(); i++) {
-            imagesIDs.put(tilesIDs[i], getResources().getIdentifier("piece_" + level.getLevelNo() + "_" + Integer.toString(level.getVariant()) + "_" + Integer.toString(i+1) , "drawable", getPackageName()));
+            imagesIDs.put(tilesIDs[i], getResources().getIdentifier("piece_" + (level.getLevelNo()+1) + "_" + Integer.toString(level.getVariant()) + "_" + Integer.toString(i+1) , "drawable", getPackageName()));
         }
 
         tilesField.addImagesIDs(imagesIDs);
@@ -109,7 +109,7 @@ public class LevelActivity extends AppCompatActivity{
         fullImage.setLayoutParams(fullImageParams);
         fullImage.setBackgroundResource(R.drawable.border);
         fullImage.setPadding(1,1,1,1);
-        fullImage.setImageResource(getResources().getIdentifier("full_"+level.getLevelNo()+"_"+level.getVariant(), "drawable", getPackageName()));
+        fullImage.setImageResource(getResources().getIdentifier("full_"+(level.getLevelNo()+1)+"_"+level.getVariant(), "drawable", getPackageName()));
 
         int tipsWidth = (int) (viewWidth * 0.2);
         int tipsHeight = (int) (viewHeight * 0.5);
