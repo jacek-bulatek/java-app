@@ -51,11 +51,10 @@ public class GameController extends Object implements Serializable {
     }
 
     public boolean nextLevel() {
-        if ( currentLevel.getLevelNo() < 10 ) {
+        if ( currentLevel.getLevelNo() < GameProperties.levelsNo ) {
             currentLevel = levels[currentLevel.getLevelNo() + 1];
             return true;
         }
-
         return false;
     }
 
@@ -64,7 +63,6 @@ public class GameController extends Object implements Serializable {
             currentLevel = levels[currentLevel.getLevelNo() - 1];
             return true;
         }
-
         return false;
     }
 
