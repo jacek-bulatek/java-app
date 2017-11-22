@@ -133,7 +133,7 @@ public class LevelActivity extends AppCompatActivity{
             previousButton.setClickable(false);
             previousButton.setVisibility(View.INVISIBLE);
         }
-        if ( level.getLevelNo() >= gameController.getLevelsNo()){
+        if ( level.getLevelNo() >= gameController.getLevelsNo() - 1){
             Button nextButton = (Button) findViewById(R.id.next);
             nextButton.setClickable(false);
             nextButton.setVisibility(View.INVISIBLE);
