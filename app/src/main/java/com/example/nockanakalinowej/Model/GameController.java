@@ -74,7 +74,7 @@ public class GameController extends Object implements Serializable {
 
     public void setAvailableTilesIDs(int[] tilesIDs) {
         availableTilesIDs = tilesIDs;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < GameProperties.levelsNo; i++) {
             levels[i].setTilesIDs(tilesIDs);
             levels[i].shuffleTiles();
         }
@@ -83,6 +83,8 @@ public class GameController extends Object implements Serializable {
     public int[] getAvailableTilesIDs() {
         return availableTilesIDs.clone();
     }
+
+    public int getLevelsNo(){ return GameProperties.levelsNo;}
 
     public void switchTiles(int ID1, int ID2) {
         currentLevel.switchTiles(ID1, ID2);
