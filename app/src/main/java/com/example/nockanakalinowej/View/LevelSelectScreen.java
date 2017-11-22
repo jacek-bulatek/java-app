@@ -30,7 +30,7 @@ public class LevelSelectScreen extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                levelSelection(position+1);
+                levelSelection(position);
             }
         });
 
