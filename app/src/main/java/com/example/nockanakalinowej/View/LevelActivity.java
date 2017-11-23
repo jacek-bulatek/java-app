@@ -60,7 +60,7 @@ public class LevelActivity extends AppCompatActivity{
             @Override
             public void onLevelDone() {
                 tips.setText("Bravo!");
-                // TODO tilesField.reverseTiles();
+                tilesField.reverseTiles();
             }
         });
 
@@ -150,7 +150,7 @@ public class LevelActivity extends AppCompatActivity{
                         for (int i = 0; i < tilesField.tilesMatrix.getTilesNo(); i++) {
 
                         }
-                        tilesField.reverseTile();
+                        tilesField.reverseTiles();
                         tilesField.setTilesClickable();
                         tips.setText("Click restart if you got lost!");
                         startButtonAction++;

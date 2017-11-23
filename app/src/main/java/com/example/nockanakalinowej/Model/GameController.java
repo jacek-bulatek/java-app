@@ -11,6 +11,7 @@ import static java.lang.Math.abs;
 
 class GameProperties {
     static int levelsNo = 11;
+    static int viariantsNo = 2;
     static public LevelProperties[]    levelsProperties = { new LevelProperties(2, 1, 1, new int[]{2}),             // level 1
             new LevelProperties(2, 2, 1, new int[]{2}),             // level 2
             new LevelProperties(2, 2, 2, new int[]{2, 2}),          // level 3
@@ -58,7 +59,7 @@ public class GameController extends Object implements Serializable {
 
 
             levels[i] = new Level(i, GameProperties.levelsProperties[i]);
-            levels[i].setVariant(abs(rand.nextInt()) % 2 + 1);
+            levels[i].setVariant(abs(rand.nextInt()) % GameProperties.viariantsNo + 1);
         }
 
         currentLevel = levels[0];
@@ -71,7 +72,7 @@ public class GameController extends Object implements Serializable {
     public void restartLevel(){
         currentLevel.setTilesIDs(availableTilesIDs);
         currentLevel.shuffleTiles();
-        currentLevel.setVariant(2 - currentLevel.getVariant() + 1);
+        currentLevel.setVariant(currentLevel.getVariant() % GameProperties.viariantsNo + 1);
     }
 
     public boolean nextLevel() {

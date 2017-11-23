@@ -154,7 +154,7 @@ class TilesMatrixLayout extends ConstraintLayout {
 
 
 
-    public void reverseTile(){
+    public void reverseTiles(){
         isObverse = !isObverse;
         refresh();
     }
@@ -192,8 +192,8 @@ class TilesMatrixLayout extends ConstraintLayout {
                     tilesButtons[i].setBackgroundResource(R.drawable.border);
                 }else{
 
-                    tilesButtons[i].setImageResource(R.drawable.tile_cover);
-                    tilesButtons[i].setBackgroundResource(R.drawable.border);
+                    tilesButtons[i].setImageResource(android.R.color.transparent);
+                    tilesButtons[i].setBackgroundResource(R.drawable.tile_cover);
                 }
             }
         }
