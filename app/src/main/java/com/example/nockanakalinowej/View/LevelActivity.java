@@ -32,6 +32,7 @@ public class LevelActivity extends AppCompatActivity{
     TilesMatrixLayout tilesField;
     TextView tips;
     ImageView fullImage;
+    int startButtonAction;
 
     ConstraintLayout levelLayout;
 
@@ -48,6 +49,8 @@ public class LevelActivity extends AppCompatActivity{
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         viewWidth = displaymetrics.widthPixels;
         viewHeight = displaymetrics.heightPixels;
+        startButtonAction = 0;
+
 
 
         Intent intent = getIntent();
@@ -142,7 +145,21 @@ public class LevelActivity extends AppCompatActivity{
 
     public void startOnclick(View view){
         Button startButton = (Button) findViewById(R.id.start);
-        startButton.setText("Restart");
+        if(startButtonAction == 0){
+                        startButton.setText("Restart");
+                        for (int i = 0; i < tilesField.tilesMatrix.getTilesNo(); i++) {
+
+                        }
+                        tilesField.reverseTile();
+                        tilesField.setTilesClickable();
+                        tips.setText("Click restart if you got lost!");
+                        startButtonAction++;
+                    }
+                else {
+                        Intent intent = new Intent(this, LevelActivity.class);
+                        setResult(LevelActivity.RESULT_OK, intent);
+                        finish();
+                    }
     }
 
     public void previousOnclick(View view){

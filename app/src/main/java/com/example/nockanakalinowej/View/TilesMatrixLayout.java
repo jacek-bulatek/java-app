@@ -28,7 +28,7 @@ class TilesMatrixLayout extends ConstraintLayout {
     private TilesMatrixEventListener eventListener;
 
     TilesMatrix tilesMatrix;
-
+    private boolean isObverse;
     ImageButton[] tilesButtons;
     int edge;
     int viewWidth;
@@ -40,7 +40,7 @@ class TilesMatrixLayout extends ConstraintLayout {
 
     public TilesMatrixLayout(Context context, int _viewWidth, int _viewHeight, TilesMatrix _tilesMatrix) {
         super(context);
-
+        isObverse=true;
         viewWidth = _viewWidth;
         viewHeight = _viewHeight;
         tilesMatrix = _tilesMatrix;
@@ -109,6 +109,8 @@ class TilesMatrixLayout extends ConstraintLayout {
             tileParams[i].leftToLeft = R.id.Tile_field;
         }
 
+
+
         for (int i = 0; i < tilesMatrix.getTilesNoY(); i++) {
             for (int j = 0; j < tilesMatrix.getTilesNoX(); j++) {
                 int index = i * tilesMatrix.getTilesNoX() + j;
@@ -126,6 +128,7 @@ class TilesMatrixLayout extends ConstraintLayout {
                 tilesButtons[index].setScaleType(ImageView.ScaleType.CENTER_CROP);
                 tilesButtons[index].setPadding(1,1,1,1);
                 tilesButtons[index].setBackgroundResource(R.drawable.tile_cover);
+                tilesButtons[index].setClickable(false);
 
                 addView(tilesButtons[index]);
             }
@@ -147,6 +150,13 @@ class TilesMatrixLayout extends ConstraintLayout {
                 findViewById(clickedTileIDs[0]).setBackgroundResource(R.drawable.tile_cover);
         }
         action = 1 - action;
+    }
+
+
+
+    public void reverseTile(){
+        isObverse = !isObverse;
+        refresh();
     }
 
     public void setTilesClickable(){
@@ -177,8 +187,14 @@ class TilesMatrixLayout extends ConstraintLayout {
         for (int i = 0; i < tilesMatrix.getTilesNo(); i++) {
             tilesButtons[i].setId(tilesIDList[i]);
             if ( imagesIDs != null ) {
-                tilesButtons[i].setImageResource(imagesIDs.get(tilesIDList[i]));
-                tilesButtons[i].setBackgroundResource(R.drawable.border);
+                if (isObverse) {
+                    tilesButtons[i].setImageResource(imagesIDs.get(tilesIDList[i]));
+                    tilesButtons[i].setBackgroundResource(R.drawable.border);
+                }else{
+
+                    tilesButtons[i].setImageResource(R.drawable.tile_cover);
+                    tilesButtons[i].setBackgroundResource(R.drawable.border);
+                }
             }
         }
     }
