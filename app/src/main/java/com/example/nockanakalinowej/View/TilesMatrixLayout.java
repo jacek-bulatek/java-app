@@ -20,23 +20,23 @@ import static java.lang.Math.min;
  */
 
 class TilesMatrixLayout extends ConstraintLayout {
-    private int action = 0;
+    protected int action = 0;
     //private int[] tilesIDList;
-    private int[] clickedTileIDs;
-    AnimationManager animationManager;
+    protected int[] clickedTileIDs;
+    protected AnimationManager animationManager;
 
-    private TilesMatrixEventListener eventListener;
+    protected TilesMatrixEventListener eventListener;
 
-    TilesMatrix tilesMatrix;
-    private boolean isObverse;
-    ImageButton[] tilesButtons;
-    int edge;
-    int viewWidth;
-    int viewHeight;
-    int tilesMarginX;
-    int tilesMarginY;
-    int tilesSpace;
-    HashMap<Integer,Integer> imagesIDs;
+    protected TilesMatrix tilesMatrix;
+    protected boolean isObverse;
+    protected ImageButton[] tilesButtons;
+    protected int edge;
+    protected int viewWidth;
+    protected int viewHeight;
+    protected int tilesMarginX;
+    protected int tilesMarginY;
+    protected int tilesSpace;
+    protected HashMap<Integer,Integer> imagesIDs;
 
     public TilesMatrixLayout(Context context, int _viewWidth, int _viewHeight, TilesMatrix _tilesMatrix) {
         super(context);
@@ -175,7 +175,7 @@ class TilesMatrixLayout extends ConstraintLayout {
         }
     }
 
-    public int tileEdge(int tileX, int tileY){
+    protected int tileEdge(int tileX, int tileY){
         int x=(int)((0.8*viewWidth-2* tilesMarginX -(tileX-1)*tilesSpace)/tileX);
         int y=(int)((0.8*viewHeight-2* tilesMarginY -(tileY-1)*tilesSpace)/tileY);
         return min(x,y);

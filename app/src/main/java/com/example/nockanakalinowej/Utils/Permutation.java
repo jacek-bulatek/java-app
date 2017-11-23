@@ -14,8 +14,8 @@ package com.example.nockanakalinowej.Utils;
  */
 
 public class Permutation {
-    private int[] permutation;      //tablica permutacji - indeksowi przyporządkowana jest wartość
-    private Cycle[] cycles;         //tablica cykli tej permutacji
+    protected int[] permutation;      //tablica permutacji - indeksowi przyporządkowana jest wartość
+    protected Cycle[] cycles;         //tablica cykli tej permutacji
 
     public Permutation(int cyclesNo, int[] cyclesLenghts, int[] _domain){
         int[] domain= new int[_domain.length];

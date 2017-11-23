@@ -9,12 +9,12 @@ import java.io.Serializable;
  */
 
 public class TilesMatrix extends Object implements Serializable {
-    int tilesNoX;
-    int tilesNoY;
-    int tilesNo;
+    protected int tilesNoX;
+    protected int tilesNoY;
+    protected int tilesNo;
 
     // TODO Consider if would be better to storing matrix as one-dimension's array (see martix's manipulation methods below)
-    int matrix[][];
+    protected int matrix[][];
 
     public TilesMatrix(int iXSize, int iYSize) {
         tilesNoX = iXSize;
