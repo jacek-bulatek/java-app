@@ -50,6 +50,7 @@ public class LevelSelectScreen extends AppCompatActivity {
         gameController.setAvailableTilesIDs(tilesIDList);
     }
 
+
     public void levelSelection(int levelNo){
         gameController.setLevel(levelNo);
 
@@ -72,6 +73,12 @@ public class LevelSelectScreen extends AppCompatActivity {
                 Intent intent = new Intent(this, LevelActivity.class);
                 intent.putExtra("gameControllerObject", gameController);
                 startActivityForResult(intent, REQUEST_CODE);
+            } else if (resultCode == RESULT_OK){
+                gameController.restartLevel();
+                Intent intent = new Intent(this, LevelActivity.class);
+                intent.putExtra("gameControllerObject", gameController);
+                startActivityForResult(intent, REQUEST_CODE);
+
             }
         }
     }
