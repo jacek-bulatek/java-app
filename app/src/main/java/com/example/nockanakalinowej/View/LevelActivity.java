@@ -60,6 +60,7 @@ public class LevelActivity extends AppCompatActivity{
             @Override
             public void onLevelDone() {
                 tips.setText("Bravo!");
+                tilesField.removeTilesClickable();
                 tilesField.reverseTiles();
             }
         });
