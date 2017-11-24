@@ -25,19 +25,19 @@ import java.util.Map;
  */
 
 public class LevelActivity extends AppCompatActivity{
-    int viewWidth;
-    int viewHeight;
+    protected int viewWidth;
+    protected int viewHeight;
     public static final int RESULT_PREVIOUS = 100;
     public static final int RESULT_NEXT = 101;
-    TilesMatrixLayout tilesField;
-    TextView tips;
-    ImageView fullImage;
-    int startButtonAction;
+    protected TilesMatrixLayout tilesField;
+    protected TextView tips;
+    protected ImageView fullImage;
+    protected int startButtonAction;
 
-    ConstraintLayout levelLayout;
+    protected ConstraintLayout levelLayout;
 
-    GameController gameController;
-    Level level;
+    protected GameController gameController;
+    protected Level level;
 
 
     @Override
@@ -67,7 +67,7 @@ public class LevelActivity extends AppCompatActivity{
         setContentView(R.layout.activity_level);
 
         //  Setting tiles matrix layout
-        tilesField = new TilesMatrixLayout(this, viewWidth, viewHeight, level.tilesMatrix);
+        tilesField = new TilesMatrixLayout(this, viewWidth, viewHeight, level.getTilesMatrix());
         tilesField.setId(R.id.Tile_field);
         tilesField.setEventListener(new TilesMatrixEventListener() {
             @Override

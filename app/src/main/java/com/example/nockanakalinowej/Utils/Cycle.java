@@ -7,7 +7,7 @@ package com.example.nockanakalinowej.Utils;
 
 public class Cycle {
     private int cycleLength;
-    public int[] cycle;
+    private int[] cycle;
 
     public Cycle(int _cycleLenght){
         cycleLength = _cycleLenght;

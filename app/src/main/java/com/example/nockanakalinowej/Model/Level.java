@@ -9,10 +9,10 @@ import java.util.Arrays;
 
 class LevelProperties
 {
-    int tilesNoX;
-    int tilesNoY;
-    int cyclesNo;
-    int[] cyclesLengths;
+    protected int tilesNoX;
+    protected int tilesNoY;
+    protected int cyclesNo;
+    protected int[] cyclesLengths;
 
     public LevelProperties(int _tilesNoX, int _tilesNoY, int _cyclesNo, int[] _cyclesLengths) {
         tilesNoX = _tilesNoX;
@@ -23,19 +23,19 @@ class LevelProperties
 };
 
 public class Level extends Object implements Serializable {
-    int levelNo;
-    int tilesNo;
-    int tilesNoX;
-    int tilesNoY;
-    boolean done;
+    protected int levelNo;
+    protected int tilesNo;
+    protected int tilesNoX;
+    protected int tilesNoY;
+    protected boolean done;
 
-    int variant;
-    int cyclesNo;
-    int[] cyclesLengths;
+    protected int variant;
+    protected int cyclesNo;
+    protected int[] cyclesLengths;
 
-    int[] expectedTilesOrder;
+    protected int[] expectedTilesOrder;
 
-    public TilesMatrix tilesMatrix;
+    protected TilesMatrix tilesMatrix;
 
     public Level(int _levelNo, LevelProperties _properties) {
         levelNo = _levelNo;
@@ -54,7 +54,7 @@ public class Level extends Object implements Serializable {
 
     public void setVariant(int _variant) { variant = _variant; }
     public int getVariant() { return variant; }
-
+    public TilesMatrix getTilesMatrix(){return tilesMatrix;}
 
     public void setTilesIDs(int[] iTilesIDs) {
         System.arraycopy(iTilesIDs, 0, expectedTilesOrder, 0, tilesNo);

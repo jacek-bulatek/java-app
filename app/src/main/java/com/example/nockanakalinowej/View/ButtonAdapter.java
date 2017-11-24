@@ -15,8 +15,8 @@ import com.example.nockanakalinowej.R;
  */
 
 class ButtonAdapter extends BaseAdapter {
-    private Context context;
-    private int screenWidth;
+    protected Context context;
+    protected int screenWidth;
     public ButtonAdapter(Context _context, int _screenWidth) {
         context = _context;
         screenWidth = _screenWidth;

@@ -13,8 +13,8 @@ import com.example.nockanakalinowej.R;
  */
 
 class AnimationManager {
-    AnimatorSet animationSet;
-    TilesMatrixEventListener eventListener;
+    protected AnimatorSet animationSet;
+    protected TilesMatrixEventListener eventListener;
 
     public void startAnimation(final View tile1, final View tile2){
         ObjectAnimator scaleXTile1 = ObjectAnimator.ofFloat(tile1, "scaleX", 1.2f);

@@ -18,7 +18,7 @@ import com.example.nockanakalinowej.R;
 
 public class LevelSelectScreen extends AppCompatActivity {
     public static final int REQUEST_CODE = 1;
-    public GameController gameController;
+    protected GameController gameController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
