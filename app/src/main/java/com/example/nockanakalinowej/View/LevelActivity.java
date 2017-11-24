@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,8 +51,6 @@ public class LevelActivity extends AppCompatActivity{
         viewWidth = displaymetrics.widthPixels;
         viewHeight = displaymetrics.heightPixels;
         startButtonAction = 0;
-
-
 
         Intent intent = getIntent();
         gameController = (GameController) intent.getSerializableExtra("gameControllerObject");
@@ -141,6 +140,34 @@ public class LevelActivity extends AppCompatActivity{
             nextButton.setClickable(false);
             nextButton.setVisibility(View.INVISIBLE);
         }
+        final ImageButton[] tempArray = tilesField.tilesButtons.clone();
+        int shufflesNo = 2;
+        AnimationManager animationManager = new AnimationManager();
+        animationManager.setLevelStartAnimationEventListener(new TilesMatrixEventListener() {
+            @Override
+            public void onTilesSwitched(int ID1, int ID2) {
+
+            }
+
+            @Override
+            public void onAnimationStart() {
+                findViewById(R.id.previous).setClickable(false);
+                findViewById(R.id.next).setClickable(false);
+                findViewById(R.id.start).setClickable(false);
+            }
+
+            @Override
+            public void onAnimationEnd() {
+                findViewById(R.id.previous).setClickable(true);
+                findViewById(R.id.next).setClickable(true);
+                findViewById(R.id.start).setClickable(true);
+                tilesField.tilesButtons = tempArray;
+                tilesField.reverseTiles();
+                tilesField.refresh();
+            }
+        });
+        animationManager.levelStartAnimation(tilesField.tilesButtons, shufflesNo);
+
     }
 
     public void startOnclick(View view){

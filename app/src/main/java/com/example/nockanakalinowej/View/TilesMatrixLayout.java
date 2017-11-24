@@ -40,13 +40,13 @@ class TilesMatrixLayout extends ConstraintLayout {
 
     public TilesMatrixLayout(Context context, int _viewWidth, int _viewHeight, TilesMatrix _tilesMatrix) {
         super(context);
-        isObverse=true;
+        isObverse=false;
         viewWidth = _viewWidth;
         viewHeight = _viewHeight;
         tilesMatrix = _tilesMatrix;
 
         animationManager = new AnimationManager();
-        animationManager.setEventListener(new TilesMatrixEventListener() {
+        animationManager.setSwitchTilesAnimationEventListener(new TilesMatrixEventListener() {
             @Override
             public void onAnimationStart() {
                 if (eventListener!=null)
@@ -145,7 +145,7 @@ class TilesMatrixLayout extends ConstraintLayout {
         clickedTileIDs[action] = clickedTile.getId();
         if(action == 1){
             if (clickedTileIDs[0] != clickedTileIDs [1])
-                animationManager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]));
+                animationManager.switchTilesAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]), 600);
             else
                 findViewById(clickedTileIDs[0]).setBackgroundResource(R.drawable.tile_cover);
         }
