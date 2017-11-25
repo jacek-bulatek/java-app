@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+    android:id="@+id/Level_layout"
     android:layout_width="match_parent"
-    android:id="@+id/Level_layout">
+    android:layout_height="match_parent"
+    android:background="@color/pastel_1_1">
 
     <ImageView
-    android:id="@+id/full_image"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginRight="16dp"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintRight_toRightOf="parent"/>
+        android:id="@+id/full_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/next"
-        android:text="Next"
-        android:onClick="nextOnclick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="@id/Level_layout"
-        app:layout_constraintBottom_toBottomOf="@id/Level_layout" />
+        android:onClick="nextOnclick"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="@id/Level_layout"
+        app:layout_constraintRight_toRightOf="@id/Level_layout" />
 
     <TextView
-    android:id="@+id/counter"
-    android:textSize="24dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginRight="16dp"
-    app:layout_constraintTop_toBottomOf="@+id/full_image"
-    app:layout_constraintBottom_toTopOf="@+id/next"
-    app:layout_constraintRight_toRightOf="@+id/Level_layout" />
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/next"
+        app:layout_constraintRight_toRightOf="@+id/Level_layout"
+        app:layout_constraintTop_toBottomOf="@+id/full_image" />
 
     <Button
-    android:id="@+id/start"
-    android:text="Start"
-    android:onClick="startOnclick"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    app:layout_constraintBottom_toBottomOf="@+id/Level_layout"
-    app:layout_constraintLeft_toRightOf="@+id/previous"
-    app:layout_constraintRight_toLeftOf="@+id/next" />
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="startOnclick"
+        android:text="Start"
+        app:layout_constraintBottom_toBottomOf="@+id/Level_layout"
+        app:layout_constraintLeft_toRightOf="@+id/previous"
+        app:layout_constraintRight_toLeftOf="@+id/next" />
 
     <Button
-    android:id="@+id/previous"
-    android:text="Previous"
-    android:onClick="previousOnclick"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:layout_marginLeft="16dp"
-    app:layout_constraintLeft_toLeftOf="@+id/Level_layout"
-    app:layout_constraintBottom_toBottomOf="@+id/Level_layout" />
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:onClick="previousOnclick"
+        android:text="Previous"
+        app:layout_constraintBottom_toBottomOf="@+id/Level_layout"
+        app:layout_constraintLeft_toLeftOf="@+id/Level_layout" />
 </android.support.constraint.ConstraintLayout>
