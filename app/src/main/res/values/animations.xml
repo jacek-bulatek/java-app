@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_tile_scale_speed">200</integer>
+    <integer name="anim_tile_move_speed">300</integer>
+    <integer name="anim_tile_click_speed">300</integer>
+</resources>

@@ -46,6 +46,7 @@ class TilesMatrixLayout extends ConstraintLayout {
         tilesMatrix = _tilesMatrix;
 
         animationManager = new AnimationManager();
+        animationManager.setResources(getResources());
         animationManager.setEventListener(new TilesMatrixEventListener() {
             @Override
             public void onAnimationStart() {
