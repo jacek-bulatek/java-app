@@ -20,8 +20,16 @@ import static java.lang.Math.min;
  */
 
 class TilesMatrixLayout extends ConstraintLayout {
+    enum State {
+        stateTilesObverse,
+        stateTilesReverse,
+        stateTileSelected,
+        stateTilesSwitching
+    }
+
+    State state;
+
     protected int action = 0;
-    protected int[] clickedTileIDs;
     protected AnimationManager animationManager;
 
     protected TilesMatrixEventListener eventListener;
@@ -29,6 +37,7 @@ class TilesMatrixLayout extends ConstraintLayout {
     protected TilesMatrix tilesMatrix;
     protected boolean isObverse;
     protected ImageButton[] tilesButtons;
+    protected ImageButton[] selectedTilesButtons;
     protected int edge;
     protected int viewWidth;
     protected int viewHeight;
@@ -44,6 +53,8 @@ class TilesMatrixLayout extends ConstraintLayout {
         viewHeight = _viewHeight;
         tilesMatrix = _tilesMatrix;
 
+        state = State.stateTilesObverse;
+
         animationManager = new AnimationManager();
         animationManager.setResources(getResources());
         animationManager.setEventListener(new TilesMatrixEventListener() {
@@ -56,8 +67,11 @@ class TilesMatrixLayout extends ConstraintLayout {
             @Override
             public void onAnimationEnd() {
                 if (eventListener!=null) {
+                    selectedTilesButtons[0].setSelected(false);
+                    selectedTilesButtons[1].setSelected(false);
+                    state = State.stateTilesReverse;
                     eventListener.onAnimationEnd();
-                    eventListener.onTilesSwitched(clickedTileIDs[0], clickedTileIDs[1]);
+                    eventListener.onTilesSwitched(selectedTilesButtons[0].getId(), selectedTilesButtons[1].getId());
                 }
             }
             @Override
@@ -66,7 +80,7 @@ class TilesMatrixLayout extends ConstraintLayout {
             }
         });
 
-        clickedTileIDs = new int[2];
+        selectedTilesButtons = new ImageButton[2];
 
         edge = tileEdge(tilesMatrix.getTilesNoX(), tilesMatrix.getTilesNoY());
 
@@ -140,23 +154,33 @@ class TilesMatrixLayout extends ConstraintLayout {
         refresh();
     }
 
-    public void tileOnclick(ImageButton clickedTile){
-        clickedTile.setImageResource(R.drawable.images_tile_cover_selected);
-        clickedTileIDs[action] = clickedTile.getId();
-        if(action == 1){
-            if (clickedTileIDs[0] != clickedTileIDs [1])
-                animationManager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]));
-            else {
-                findViewById(clickedTileIDs[0]).setBackgroundResource(R.drawable.tile_cover);
-            }
+    public void tileOnclick(ImageButton clickedTile) {
+        assert ( (state == State.stateTilesReverse) || (state == State.stateTileSelected) );
+
+        switch ( state ) {
+            case stateTileSelected :    if ( clickedTile.isSelected() ) {
+                                            clickedTile.setSelected(false);
+                                            state = State.stateTilesReverse;
+                                        } else {
+                                            clickedTile.setSelected(true);
+                                            selectedTilesButtons[1] = clickedTile;
+                                            animationManager.startAnimation(findViewById(selectedTilesButtons[0].getId()), findViewById(selectedTilesButtons[1].getId()));
+                                            state = State.stateTilesSwitching;
+                                        }
+                                        break;
+            case stateTilesReverse :    clickedTile.setSelected(true);
+                                        selectedTilesButtons[0] = clickedTile;
+                                        state = State.stateTileSelected;
+                                        break;
         }
-        action = 1 - action;
     }
 
-
-
     public void reverseTiles(){
-        isObverse = !isObverse;
+        if ( state == State.stateTilesObverse )
+            state = State.stateTilesReverse;
+        else
+            state = State.stateTilesObverse;
+
         refresh();
     }
 
@@ -188,11 +212,11 @@ class TilesMatrixLayout extends ConstraintLayout {
         for (int i = 0; i < tilesMatrix.getTilesNo(); i++) {
             tilesButtons[i].setId(tilesIDList[i]);
             if ( imagesIDs != null ) {
-                if (isObverse) {
+                if ( state == State.stateTilesObverse) {
                     tilesButtons[i].setImageResource(imagesIDs.get(tilesIDList[i]));
                     tilesButtons[i].setBackgroundResource(R.drawable.border);
                 } else {
-                    tilesButtons[i].setImageResource(R.drawable.images_tile_cover);
+                    tilesButtons[i].setImageDrawable(getResources().getDrawable(R.drawable.tiles_selecting, getContext().getTheme()));
                     tilesButtons[i].setBackgroundResource(R.drawable.border);
                 }
             }
