@@ -21,7 +21,6 @@ import static java.lang.Math.min;
 
 class TilesMatrixLayout extends ConstraintLayout {
     protected int action = 0;
-    //private int[] tilesIDList;
     protected int[] clickedTileIDs;
     protected AnimationManager animationManager;
 
@@ -142,13 +141,14 @@ class TilesMatrixLayout extends ConstraintLayout {
     }
 
     public void tileOnclick(ImageButton clickedTile){
-        clickedTile.setBackgroundResource(R.drawable.tile_cover_selected);
+        clickedTile.setImageResource(R.drawable.images_tile_cover_selected);
         clickedTileIDs[action] = clickedTile.getId();
         if(action == 1){
             if (clickedTileIDs[0] != clickedTileIDs [1])
                 animationManager.startAnimation(findViewById(clickedTileIDs[0]), findViewById(clickedTileIDs[1]));
-            else
+            else {
                 findViewById(clickedTileIDs[0]).setBackgroundResource(R.drawable.tile_cover);
+            }
         }
         action = 1 - action;
     }
@@ -191,10 +191,9 @@ class TilesMatrixLayout extends ConstraintLayout {
                 if (isObverse) {
                     tilesButtons[i].setImageResource(imagesIDs.get(tilesIDList[i]));
                     tilesButtons[i].setBackgroundResource(R.drawable.border);
-                }else{
-
-                    tilesButtons[i].setImageResource(android.R.color.transparent);
-                    tilesButtons[i].setBackgroundResource(R.drawable.tile_cover);
+                } else {
+                    tilesButtons[i].setImageResource(R.drawable.images_tile_cover);
+                    tilesButtons[i].setBackgroundResource(R.drawable.border);
                 }
             }
         }

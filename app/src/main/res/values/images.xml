@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="images_tile_cover">@drawable/tile</drawable>
+    <drawable name="images_tile_cover_selected">@drawable/tile_clicked</drawable>
+</resources>
