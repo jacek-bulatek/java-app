@@ -1,5 +1,10 @@
 package com.example.nockanakalinowej.Model;
 
+
+import android.graphics.Bitmap;
+
+import com.example.nockanakalinowej.Utils.Shredder;
+
 import java.io.Serializable;
 import java.util.Arrays;
 

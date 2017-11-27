@@ -1,6 +1,8 @@
 package com.example.nockanakalinowej.View;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.nockanakalinowej.R;
 import com.example.nockanakalinowej.Model.TilesMatrix;
+import com.example.nockanakalinowej.Utils.Shredder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +47,7 @@ class TilesMatrixLayout extends ConstraintLayout {
     protected int tilesMarginX;
     protected int tilesMarginY;
     protected int tilesSpace;
-    protected HashMap<Integer,Integer> imagesIDs;
+    protected HashMap<Integer,BitmapDrawable> imagesIDs;
 
     public TilesMatrixLayout(Context context, int _viewWidth, int _viewHeight, TilesMatrix _tilesMatrix) {
         super(context);
@@ -149,7 +152,7 @@ class TilesMatrixLayout extends ConstraintLayout {
         }
     }
 
-    public void addImagesIDs(Map<Integer,Integer> IDs) {
+    public void addImagesIDs(Map<Integer,BitmapDrawable> IDs) {
         imagesIDs = new HashMap<>(IDs);
         refresh();
     }
@@ -213,7 +216,7 @@ class TilesMatrixLayout extends ConstraintLayout {
             tilesButtons[i].setId(tilesIDList[i]);
             if ( imagesIDs != null ) {
                 if ( state == State.stateTilesObverse) {
-                    tilesButtons[i].setImageResource(imagesIDs.get(tilesIDList[i]));
+                    tilesButtons[i].setImageDrawable(imagesIDs.get(tilesIDList[i]));
                     tilesButtons[i].setBackgroundResource(R.drawable.border);
                 } else {
                     tilesButtons[i].setImageDrawable(getResources().getDrawable(R.drawable.tiles_selecting, getContext().getTheme()));

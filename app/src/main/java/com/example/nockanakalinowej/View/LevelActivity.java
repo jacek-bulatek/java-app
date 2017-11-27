@@ -1,6 +1,9 @@
 package com.example.nockanakalinowej.View;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import com.example.nockanakalinowej.Model.GameController;
 import com.example.nockanakalinowej.Model.GameControllerEventListener;
 import com.example.nockanakalinowej.Model.Level;
 import com.example.nockanakalinowej.R;
+import com.example.nockanakalinowej.Utils.Shredder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +37,10 @@ public class LevelActivity extends AppCompatActivity{
     protected TextView tips;
     protected ImageView fullImage;
     protected int startButtonAction;
+    protected Bitmap image;
+    protected BitmapDrawable[] pieces;
+
+    protected Shredder shredder;
 
     protected ConstraintLayout levelLayout;
 
@@ -93,11 +101,25 @@ public class LevelActivity extends AppCompatActivity{
             }
         });
 
-        Map<Integer,Integer>    imagesIDs = new HashMap<>(level.getTilesNo());
+        // Cutting full image to pieces
+        String imageName = "full_"+(level.getLevelNo()+1)+"_"+level.getVariant();
+        int imageID = getResources().getIdentifier(imageName, "drawable", getPackageName());
+
+        image = BitmapFactory.decodeResource(getResources(), imageID).copy(Bitmap.Config.ARGB_8888, true);
+
+        shredder = new Shredder(image, level.getTilesNoX(), level.getTilesNoY(), displaymetrics);
+        pieces = new BitmapDrawable[level.getTilesNo()];
+
+        for (int i = 0; i < level.getTilesNo(); i++){
+            pieces[i] = new BitmapDrawable(shredder.getOutput()[i]);
+        }
+
+        Map<Integer,BitmapDrawable>    imagesIDs = new HashMap<>(level.getTilesNo());
         int[] tilesIDs = gameController.getAvailableTilesIDs();
 
+        // Bounding image pieces with tiles and pushing to the tile field
         for (int i = 0; i < level.getTilesNo(); i++) {
-            imagesIDs.put(tilesIDs[i], getResources().getIdentifier("piece_" + (level.getLevelNo()+1) + "_" + Integer.toString(level.getVariant()) + "_" + Integer.toString(i+1) , "drawable", getPackageName()));
+            imagesIDs.put(tilesIDs[i], pieces[i]);
         }
 
         tilesField.addImagesIDs(imagesIDs);
