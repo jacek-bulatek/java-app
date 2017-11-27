@@ -1,6 +1,5 @@
 package com.example.nockanakalinowej.Model;
 
-
 import android.graphics.Bitmap;
 
 import com.example.nockanakalinowej.Utils.Shredder;

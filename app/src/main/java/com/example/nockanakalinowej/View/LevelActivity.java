@@ -137,7 +137,7 @@ public class LevelActivity extends AppCompatActivity{
         fullImage.setLayoutParams(fullImageParams);
         fullImage.setBackgroundResource(R.drawable.border);
         fullImage.setPadding(1,1,1,1);
-        fullImage.setImageResource(getResources().getIdentifier("full_"+(level.getLevelNo()+1)+"_"+level.getVariant(), "drawable", getPackageName()));
+        fullImage.setImageResource(imageID);
 
         int tipsWidth = (int) (viewWidth * 0.2);
         int tipsHeight = (int) (viewHeight * 0.5);

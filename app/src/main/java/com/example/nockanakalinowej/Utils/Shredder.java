@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
  */
 
 public class Shredder {
-    Bitmap[] output;
+    private Bitmap[] output;
 
     public Shredder(Bitmap input, int slicesX, int slicesY, DisplayMetrics displayMetrics){
         output = new Bitmap[slicesX*slicesY];
