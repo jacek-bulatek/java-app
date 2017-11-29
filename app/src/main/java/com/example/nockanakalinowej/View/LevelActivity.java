@@ -130,27 +130,18 @@ public class LevelActivity extends AppCompatActivity{
 
         // Setting navigation buttons params
         int navigationButtonsHeight = (int) (viewHeight*0.2) - 2*MARGIN;
-        ConstraintLayout.LayoutParams startButtonParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, navigationButtonsHeight);
-        startButtonParams.leftToRight = R.id.previous;
-        startButtonParams.rightToLeft = R.id.next;
-        startButtonParams.bottomToBottom = R.id.Level_layout;
-        startButtonParams.bottomMargin = 16;
         start = (Button) findViewById(R.id.start);
-        start.setLayoutParams(startButtonParams);
-        ConstraintLayout.LayoutParams previousButtonParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, navigationButtonsHeight);
-        previousButtonParams.leftToLeft = R.id.Level_layout;
-        previousButtonParams.bottomToBottom = R.id.Level_layout;
-        previousButtonParams.leftMargin = 16;
-        previousButtonParams.bottomMargin = 16;
+        ConstraintLayout.LayoutParams navigationButtonsParams = (ConstraintLayout.LayoutParams) start.getLayoutParams();
+        navigationButtonsParams.height = navigationButtonsHeight;
+        start.setLayoutParams(navigationButtonsParams);
         previous = (Button) findViewById(R.id.previous);
-        previous.setLayoutParams(previousButtonParams);
-        ConstraintLayout.LayoutParams nextButtonParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, navigationButtonsHeight);
-        nextButtonParams.rightToRight = R.id.Level_layout;
-        nextButtonParams.bottomToBottom = R.id.Level_layout;
-        nextButtonParams.rightMargin = 16;
-        nextButtonParams.bottomMargin = 16;
+        navigationButtonsParams = (ConstraintLayout.LayoutParams) previous.getLayoutParams();
+        navigationButtonsParams.height = navigationButtonsHeight;
+        previous.setLayoutParams(navigationButtonsParams);
         next = (Button) findViewById(R.id.next);
-        next.setLayoutParams(nextButtonParams);
+        navigationButtonsParams = (ConstraintLayout.LayoutParams) next.getLayoutParams();
+        navigationButtonsParams.height = navigationButtonsHeight;
+        next.setLayoutParams(navigationButtonsParams);
 
         // Setting full image params
         int fullImageWidth = (int) (viewWidth * 0.2);
