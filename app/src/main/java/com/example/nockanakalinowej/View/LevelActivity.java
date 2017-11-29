@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,11 +32,15 @@ import java.util.Map;
 public class LevelActivity extends AppCompatActivity{
     protected int viewWidth;
     protected int viewHeight;
+    public static final int MARGIN = 16;
     public static final int RESULT_PREVIOUS = 100;
     public static final int RESULT_NEXT = 101;
     protected TilesMatrixLayout tilesField;
     protected TextView tips;
     protected ImageView fullImage;
+    protected Button start;
+    protected Button next;
+    protected Button previous;
     protected int startButtonAction;
     protected Bitmap image;
     protected BitmapDrawable[] pieces;
@@ -58,7 +63,6 @@ public class LevelActivity extends AppCompatActivity{
         viewWidth = displaymetrics.widthPixels;
         viewHeight = displaymetrics.heightPixels;
         startButtonAction = 0;
-
 
 
         Intent intent = getIntent();
@@ -123,6 +127,30 @@ public class LevelActivity extends AppCompatActivity{
         }
 
         tilesField.addImagesIDs(imagesIDs);
+
+        // Setting navigation buttons params
+        int navigationButtonsHeight = (int) (viewHeight*0.2) - 2*MARGIN;
+        ConstraintLayout.LayoutParams startButtonParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, navigationButtonsHeight);
+        startButtonParams.leftToRight = R.id.previous;
+        startButtonParams.rightToLeft = R.id.next;
+        startButtonParams.bottomToBottom = R.id.Level_layout;
+        startButtonParams.bottomMargin = 16;
+        start = (Button) findViewById(R.id.start);
+        start.setLayoutParams(startButtonParams);
+        ConstraintLayout.LayoutParams previousButtonParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, navigationButtonsHeight);
+        previousButtonParams.leftToLeft = R.id.Level_layout;
+        previousButtonParams.bottomToBottom = R.id.Level_layout;
+        previousButtonParams.leftMargin = 16;
+        previousButtonParams.bottomMargin = 16;
+        previous = (Button) findViewById(R.id.previous);
+        previous.setLayoutParams(previousButtonParams);
+        ConstraintLayout.LayoutParams nextButtonParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, navigationButtonsHeight);
+        nextButtonParams.rightToRight = R.id.Level_layout;
+        nextButtonParams.bottomToBottom = R.id.Level_layout;
+        nextButtonParams.rightMargin = 16;
+        nextButtonParams.bottomMargin = 16;
+        next = (Button) findViewById(R.id.next);
+        next.setLayoutParams(nextButtonParams);
 
         // Setting full image params
         int fullImageWidth = (int) (viewWidth * 0.2);
