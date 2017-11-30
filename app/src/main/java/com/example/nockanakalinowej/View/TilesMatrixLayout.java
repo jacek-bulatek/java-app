@@ -85,12 +85,11 @@ class TilesMatrixLayout extends ConstraintLayout {
 
         selectedTilesButtons = new ImageButton[2];
 
-        edge = tileEdge(tilesMatrix.getTilesNoX(), tilesMatrix.getTilesNoY());
-
         tilesMarginX = 16;
         tilesMarginY = 16;
         tilesSpace = 2;
 
+        edge = tileEdge(tilesMatrix.getTilesNoX(), tilesMatrix.getTilesNoY());
 
         // Creating tiles buttons
         tilesButtons = new ImageButton[tilesMatrix.getTilesNo()];
@@ -204,8 +203,8 @@ class TilesMatrixLayout extends ConstraintLayout {
     }
 
     protected int tileEdge(int tileX, int tileY){
-        int x=(int)((0.8*viewWidth-2* tilesMarginX -(tileX-1)*tilesSpace)/tileX);
-        int y=(int)((0.8*viewHeight-2* tilesMarginY -(tileY-1)*tilesSpace)/tileY);
+        int x=(int)(((viewWidth * 0.8) - (2 * tilesMarginX) - ((tileX - 1) * tilesSpace)) / tileX);
+        int y=(int)((0.8 * viewHeight - tilesMarginY - (tileY - 1) * tilesSpace) / tileY);
         return min(x,y);
     }
 
