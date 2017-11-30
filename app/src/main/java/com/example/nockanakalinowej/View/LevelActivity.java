@@ -38,9 +38,6 @@ public class LevelActivity extends AppCompatActivity{
     protected TilesMatrixLayout tilesField;
     protected TextView tips;
     protected ImageView fullImage;
-    protected Button start;
-    protected Button next;
-    protected Button previous;
     protected int startButtonAction;
     protected Bitmap image;
     protected BitmapDrawable[] pieces;
@@ -130,18 +127,18 @@ public class LevelActivity extends AppCompatActivity{
 
         // Setting navigation buttons params
         int navigationButtonsHeight = (int) (viewHeight*0.2) - 2*MARGIN;
-        start = (Button) findViewById(R.id.start);
-        ConstraintLayout.LayoutParams navigationButtonsParams = (ConstraintLayout.LayoutParams) start.getLayoutParams();
+        Button startButton = (Button) findViewById(R.id.start);
+        ConstraintLayout.LayoutParams navigationButtonsParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
         navigationButtonsParams.height = navigationButtonsHeight;
-        start.setLayoutParams(navigationButtonsParams);
-        previous = (Button) findViewById(R.id.previous);
-        navigationButtonsParams = (ConstraintLayout.LayoutParams) previous.getLayoutParams();
+        startButton.setLayoutParams(navigationButtonsParams);
+        Button previousButton = (Button) findViewById(R.id.previous);
+        navigationButtonsParams = (ConstraintLayout.LayoutParams) previousButton.getLayoutParams();
         navigationButtonsParams.height = navigationButtonsHeight;
-        previous.setLayoutParams(navigationButtonsParams);
-        next = (Button) findViewById(R.id.next);
-        navigationButtonsParams = (ConstraintLayout.LayoutParams) next.getLayoutParams();
+        previousButton.setLayoutParams(navigationButtonsParams);
+        Button nextButton = (Button) findViewById(R.id.next);
+        navigationButtonsParams = (ConstraintLayout.LayoutParams) nextButton.getLayoutParams();
         navigationButtonsParams.height = navigationButtonsHeight;
-        next.setLayoutParams(navigationButtonsParams);
+        nextButton.setLayoutParams(navigationButtonsParams);
 
         // Setting full image params
         int fullImageWidth = (int) (viewWidth * 0.2);
@@ -174,12 +171,10 @@ public class LevelActivity extends AppCompatActivity{
         levelLayout.addView(tilesField);
 
         if ( level.getLevelNo() == 0) {
-            Button previousButton = (Button) findViewById(R.id.previous);
             previousButton.setClickable(false);
             previousButton.setVisibility(View.INVISIBLE);
         }
         if ( level.getLevelNo() >= gameController.getLevelsNo() - 1){
-            Button nextButton = (Button) findViewById(R.id.next);
             nextButton.setClickable(false);
             nextButton.setVisibility(View.INVISIBLE);
         }
