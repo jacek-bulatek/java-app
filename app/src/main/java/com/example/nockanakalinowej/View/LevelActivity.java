@@ -41,8 +41,9 @@ public class LevelActivity extends AppCompatActivity{
     protected int startButtonAction;
     protected Bitmap image;
     protected BitmapDrawable[] pieces;
-
+    protected int fullImageID;
     protected Shredder shredder;
+    protected DisplayMetrics displaymetrics;
 
     protected ConstraintLayout levelLayout;
 
@@ -55,7 +56,7 @@ public class LevelActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        DisplayMetrics displaymetrics = new DisplayMetrics();
+        displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         viewWidth = displaymetrics.widthPixels;
         viewHeight = displaymetrics.heightPixels;
@@ -76,6 +77,73 @@ public class LevelActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_level);
 
+        tilesFieldInit();
+        navigationButtonsInit();
+        fullImageInit();
+        tipsInit();
+
+        levelLayout = (ConstraintLayout) findViewById(R.id.Level_layout);
+        levelLayout.addView(tilesField);
+
+    }
+
+    protected void fullImageInit(){
+        // Setting full image params
+        int fullImageWidth = (int) (viewWidth * 0.2);
+        int fullImageHeight = (int) (fullImageWidth* level.getTilesNoY() / level.getTilesNoX());
+        ConstraintLayout.LayoutParams fullImageParams = new ConstraintLayout.LayoutParams(fullImageWidth, fullImageHeight);
+        fullImageParams.topToTop = R.id.Level_layout;
+        fullImageParams.rightToRight = R.id.Level_layout;
+        fullImageParams.rightMargin = 16;
+        fullImageParams.topMargin = 16;
+
+        fullImage = (ImageView) findViewById(R.id.full_image);
+        fullImage.setLayoutParams(fullImageParams);
+        fullImage.setBackgroundResource(R.drawable.border);
+        fullImage.setPadding(1,1,1,1);
+        fullImage.setImageResource(fullImageID);
+    }
+
+    protected void tipsInit(){
+        int tipsWidth = (int) (viewWidth * 0.2);
+        int tipsHeight = (int) (viewHeight * 0.5);
+        ConstraintLayout.LayoutParams tipsParams = new ConstraintLayout.LayoutParams(tipsWidth, tipsHeight);
+        tipsParams.topToBottom = R.id.full_image;
+        tipsParams.bottomToTop = R.id.next;
+        tipsParams.rightToRight = R.id.Level_layout;
+        tipsParams.rightMargin = 16;
+        tips = (TextView) findViewById(R.id.tips);
+        tips.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+        tips.setLayoutParams(tipsParams);
+        tips.setText("Click Start when you're ready!");
+    }
+
+    protected void navigationButtonsInit(){
+        // Setting navigation buttons params
+        int navigationButtonsHeight = (int) (viewHeight*0.2) - 2*MARGIN;
+        Button startButton = (Button) findViewById(R.id.start);
+        ConstraintLayout.LayoutParams navigationButtonsParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
+        navigationButtonsParams.height = navigationButtonsHeight;
+        startButton.setLayoutParams(navigationButtonsParams);
+        Button previousButton = (Button) findViewById(R.id.previous);
+        navigationButtonsParams = (ConstraintLayout.LayoutParams) previousButton.getLayoutParams();
+        navigationButtonsParams.height = navigationButtonsHeight;
+        previousButton.setLayoutParams(navigationButtonsParams);
+        Button nextButton = (Button) findViewById(R.id.next);
+        navigationButtonsParams = (ConstraintLayout.LayoutParams) nextButton.getLayoutParams();
+        navigationButtonsParams.height = navigationButtonsHeight;
+        nextButton.setLayoutParams(navigationButtonsParams);
+        if ( level.getLevelNo() == 0) {
+            previousButton.setClickable(false);
+            previousButton.setVisibility(View.INVISIBLE);
+        }
+        if ( level.getLevelNo() >= gameController.getLevelsNo() - 1){
+            nextButton.setClickable(false);
+            nextButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    protected void tilesFieldInit(){
         //  Setting tiles matrix layout
         tilesField = new TilesMatrixLayout(this, viewWidth, viewHeight, level.getTilesMatrix());
         tilesField.setId(R.id.Tile_field);
@@ -91,8 +159,12 @@ public class LevelActivity extends AppCompatActivity{
             @Override
             public void onAnimationEnd() {
                 tilesField.setTilesClickable();
-                findViewById(R.id.previous).setClickable(true);
-                findViewById(R.id.next).setClickable(true);
+                if ( level.getLevelNo() != 0) {
+                    findViewById(R.id.previous).setClickable(true);
+                }
+                if ( level.getLevelNo() < gameController.getLevelsNo() - 1){
+                    findViewById(R.id.next).setClickable(true);
+                }
                 findViewById(R.id.start).setClickable(true);
             }
             @Override
@@ -101,12 +173,11 @@ public class LevelActivity extends AppCompatActivity{
                 tilesField.refresh();
             }
         });
-
         // Cutting full image to pieces
         String imageName = "full_"+(level.getLevelNo()+1)+"_"+level.getVariant();
-        int imageID = getResources().getIdentifier(imageName, "drawable", getPackageName());
+        fullImageID = getResources().getIdentifier(imageName, "drawable", getPackageName());
 
-        image = BitmapFactory.decodeResource(getResources(), imageID).copy(Bitmap.Config.ARGB_8888, true);
+        image = BitmapFactory.decodeResource(getResources(), fullImageID).copy(Bitmap.Config.ARGB_8888, true);
 
         shredder = new Shredder(image, level.getTilesNoX(), level.getTilesNoY(), displaymetrics);
         pieces = new BitmapDrawable[level.getTilesNo()];
@@ -124,61 +195,8 @@ public class LevelActivity extends AppCompatActivity{
         }
 
         tilesField.addImagesIDs(imagesIDs);
-
-        // Setting navigation buttons params
-        int navigationButtonsHeight = (int) (viewHeight*0.2) - 2*MARGIN;
-        Button startButton = (Button) findViewById(R.id.start);
-        ConstraintLayout.LayoutParams navigationButtonsParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
-        navigationButtonsParams.height = navigationButtonsHeight;
-        startButton.setLayoutParams(navigationButtonsParams);
-        Button previousButton = (Button) findViewById(R.id.previous);
-        navigationButtonsParams = (ConstraintLayout.LayoutParams) previousButton.getLayoutParams();
-        navigationButtonsParams.height = navigationButtonsHeight;
-        previousButton.setLayoutParams(navigationButtonsParams);
-        Button nextButton = (Button) findViewById(R.id.next);
-        navigationButtonsParams = (ConstraintLayout.LayoutParams) nextButton.getLayoutParams();
-        navigationButtonsParams.height = navigationButtonsHeight;
-        nextButton.setLayoutParams(navigationButtonsParams);
-
-        // Setting full image params
-        int fullImageWidth = (int) (viewWidth * 0.2);
-        int fullImageHeight = (int) (fullImageWidth* level.getTilesNoY() / level.getTilesNoX());
-        ConstraintLayout.LayoutParams fullImageParams = new ConstraintLayout.LayoutParams(fullImageWidth, fullImageHeight);
-        fullImageParams.topToTop = R.id.Level_layout;
-        fullImageParams.rightToRight = R.id.Level_layout;
-        fullImageParams.rightMargin = 16;
-        fullImageParams.topMargin = 16;
-
-        fullImage = (ImageView) findViewById(R.id.full_image);
-        fullImage.setLayoutParams(fullImageParams);
-        fullImage.setBackgroundResource(R.drawable.border);
-        fullImage.setPadding(1,1,1,1);
-        fullImage.setImageResource(imageID);
-
-        int tipsWidth = (int) (viewWidth * 0.2);
-        int tipsHeight = (int) (viewHeight * 0.5);
-        ConstraintLayout.LayoutParams tipsParams = new ConstraintLayout.LayoutParams(tipsWidth, tipsHeight);
-        tipsParams.topToBottom = R.id.full_image;
-        tipsParams.bottomToTop = R.id.next;
-        tipsParams.rightToRight = R.id.Level_layout;
-        tipsParams.rightMargin = 16;
-        tips = (TextView) findViewById(R.id.counter);
-        tips.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-        tips.setLayoutParams(tipsParams);
-        tips.setText("Click Start when you're ready!");
-		
-        levelLayout = (ConstraintLayout) findViewById(R.id.Level_layout);
-        levelLayout.addView(tilesField);
-
-        if ( level.getLevelNo() == 0) {
-            previousButton.setClickable(false);
-            previousButton.setVisibility(View.INVISIBLE);
-        }
-        if ( level.getLevelNo() >= gameController.getLevelsNo() - 1){
-            nextButton.setClickable(false);
-            nextButton.setVisibility(View.INVISIBLE);
-        }
     }
+
 
     public void startOnclick(View view){
         Button startButton = (Button) findViewById(R.id.start);
