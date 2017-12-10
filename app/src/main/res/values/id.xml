@@ -5,7 +5,7 @@
     <item name="previous" type="id" />
     <item name="full_image" type="id" />
     <item name="emptyness" type="id" />
-    <item name="counter" type="id" />
+    <item name="tips" type="id" />
     <item name="Level_layout" type="id" />
     <item name="Tile_field" type="id" />
     <item name="tile0" type="id" />
